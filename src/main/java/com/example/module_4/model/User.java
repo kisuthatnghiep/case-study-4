@@ -1,4 +1,4 @@
 package com.example.module_4.model;
 
-public class Host {
+public class User {
 }

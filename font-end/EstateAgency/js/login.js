@@ -79,3 +79,38 @@ function signUp() {
 }
 
 let user ="";
+
+function changePassword() {
+    let newPassword = $("#newPass").val()
+    let oldPassword = $("#oldPass").val()
+    let autPassword = $("#passConfirm").val()
+    let newUser = {
+        id: user.id,
+        oldPassword: oldPassword,
+        newPassword: newPassword,
+        autPassword: autPassword
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "PUT",
+        url: "http://localhost:8080/changePw",
+        data: JSON.stringify(newUser),
+        dataType: "text",
+        success: function (data) {
+            $('#exampleModal').modal('hide');
+            Swal.fire(data, '', 'success')
+        },
+        error: function(){
+            $('#exampleModal').modal('hide');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Change password Failed',
+            })
+        }
+    })
+    event.preventDefault();
+}

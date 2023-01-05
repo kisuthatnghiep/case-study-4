@@ -1,6 +1,7 @@
 package com.example.module_4.service;
 
 import com.example.module_4.model.User;
+import com.example.module_4.model.UserUpdate;
 import com.example.module_4.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,11 +40,11 @@ public class LoginService {
         return false;
     }
 
-    public boolean changePassword(User user, String oldPassword, String newPassword, String autPassword){
-        User user_update = userRepository.findById(user.getId()).get();
-        if (user_update.getPassword().equals(oldPassword)){
-            if (newPassword.equals(autPassword)){
-                user_update.setPassword(newPassword);
+    public boolean changePassword(UserUpdate userUpdate){
+        User user_update = userRepository.findById(userUpdate.getId()).get();
+        if (user_update.getPassword().equals(userUpdate.getOldPassword())){
+            if (userUpdate.getNewPassword().equals(userUpdate.getAutPassword())){
+                user_update.setPassword(userUpdate.getNewPassword());
                 userRepository.save(user_update);
                 return true;
             }

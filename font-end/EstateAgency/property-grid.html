@@ -25,6 +25,7 @@
 
   <!-- Main Stylesheet File -->
   <link href="css/style.css" rel="stylesheet">
+  <script src="js/login.js"></script>
 
   <!-- =======================================================
     Theme Name: EstateAgency
@@ -34,7 +35,7 @@
   ======================================================= -->
 </head>
 
-<body>
+<body onload="getUser()">
 
   <div class="click-closed"></div>
   <!--/ Form Search Star /-->
@@ -155,9 +156,8 @@
 
 
           <li class="nav-item dropdown">
-            <a style="color: #319849" class="nav-link dropdown-toggle" href="#" id="UserDropdown" role="button" data-toggle="dropdown"
+            <a style="color: #319849" class="nav-link dropdown-toggle" id="UserDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-              User
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="agent-single.html">Profile</a>

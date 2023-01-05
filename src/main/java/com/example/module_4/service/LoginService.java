@@ -12,18 +12,14 @@ public class LoginService {
     @Autowired
     private IUserRepository userRepository;
 
-    public Integer login(User user) {
+    public boolean login(User user) {
         List<User> userList = userRepository.findAll();
         for (User us : userList) {
             if (us.getUsername().equals(user.getUsername()) && us.getPassword().equals(user.getPassword())) {
-                if (user.getRole().getName().equals("ROLE_GUEST")) {
-                    return 0;
-                }
-                return 1;
+                return true;
             }
-
         }
-        return 2;
+        return false;
     }
 
     public boolean signUp(User user) {
@@ -41,6 +37,19 @@ public class LoginService {
             }
         }
         return true;
+    }
+
+    public boolean changePassword(User user, String oldPassword, String newPassword, String autPassword){
+        User user_update = userRepository.findById(user.getId()).get();
+        if (user_update.getPassword().equals(oldPassword)){
+            if (newPassword.equals(autPassword)){
+                user_update.setPassword(newPassword);
+                userRepository.save(user_update);
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
 }

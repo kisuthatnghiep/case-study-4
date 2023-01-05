@@ -1,5 +1,6 @@
 package com.example.module_4.service;
 
+import com.example.module_4.model.House;
 import com.example.module_4.model.User;
 import com.example.module_4.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,9 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public void save(User user) {
+    public House save(User user) {
         userRepository.save(user);
+        return null;
     }
 
     @Override

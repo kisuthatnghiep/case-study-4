@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Data
@@ -24,8 +23,6 @@ public class User {
     @ManyToOne
     @JoinColumn(name = "role_id")
     private Role role;
-    @ManyToMany(mappedBy = "users")
-    private List<House> houses;
 
     public User(Long id, String name, String username, String password) {
         this.id = id;

@@ -10,15 +10,12 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class House {
+public class ImgHouse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
-    private String address;
-    private String description;
-    private Double price;
     @ManyToOne
-    @JoinColumn(name = "host_id")
-    private User host;
+    @JoinColumn(name = "house_id")
+    private House house;
+    private String img;
 }

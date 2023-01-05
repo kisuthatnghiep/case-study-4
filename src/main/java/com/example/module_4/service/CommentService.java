@@ -1,6 +1,7 @@
 package com.example.module_4.service;
 
 import com.example.module_4.model.Comment;
+import com.example.module_4.model.House;
 import com.example.module_4.repository.ICommentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,9 @@ public class CommentService implements ICommentService {
     }
 
     @Override
-    public void save(Comment comment) {
+    public House save(Comment comment) {
         commentRepository.save(comment);
+        return null;
     }
 
     @Override

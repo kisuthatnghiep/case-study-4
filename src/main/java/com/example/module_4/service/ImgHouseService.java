@@ -1,7 +1,7 @@
 package com.example.module_4.service;
 
+import com.example.module_4.model.House;
 import com.example.module_4.model.ImgHouse;
-import com.example.module_4.repository.ICommentRepository;
 import com.example.module_4.repository.IImgHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,9 @@ public class ImgHouseService implements IImgHouseService {
     }
 
     @Override
-    public void save(ImgHouse imgHouse) {
+    public House save(ImgHouse imgHouse) {
         imgHouseRepository.save(imgHouse);
+        return null;
     }
 
     @Override

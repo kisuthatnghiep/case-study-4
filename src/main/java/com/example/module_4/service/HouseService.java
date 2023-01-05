@@ -23,8 +23,9 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public void save(House house) {
+    public House save(House house) {
         houseRepository.save(house);
+        return house;
     }
 
     @Override

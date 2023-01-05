@@ -1,5 +1,6 @@
 package com.example.module_4.service;
 
+import com.example.module_4.model.House;
 import com.example.module_4.model.Role;
 import com.example.module_4.repository.IRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class RoleService implements IRoleService{
     }
 
     @Override
-    public void save(Role role) {
+    public House save(Role role) {
       roleRepository.save(role);
+        return null;
     }
 
     @Override

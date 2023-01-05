@@ -24,9 +24,14 @@ function login() {
             if (data.id != null) {
                 window.localStorage.setItem("user", JSON.stringify(data));
                 window.location.href = "index.html"
-            }else {
-             alert("Log in fail!")
             }
+        },
+        error: function(){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Log In Failed',
+            })
         }
     })
     event.preventDefault();

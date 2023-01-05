@@ -12,10 +12,10 @@ public class LoginService {
     @Autowired
     private IUserRepository userRepository;
 
-    public boolean login(String username, String password) {
+    public boolean login(User user) {
         List<User> userList = userRepository.findAll();
         for (User us : userList) {
-            if (us.getUsername().equals(username) && us.getPassword().equals(password)) {
+            if (us.getUsername().equals(user.getUsername()) && us.getPassword().equals(user.getPassword())) {
                 return true;
             }
         }
@@ -33,10 +33,10 @@ public class LoginService {
         List<User> users = userRepository.findAll();
         for (User u : users) {
             if (user.getUsername().equals(u.getUsername())) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 
     public boolean changePassword(User user, String oldPassword, String newPassword, String autPassword){

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
   <link rel="stylesheet" href="css/login.css">
   <script src="js/login.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Title</title>
 </head>
 <body>
@@ -14,15 +16,15 @@
     <h2>Welcome</h2>
     <label>
       <span>User Name</span>
-      <input type="email" />
+      <input type="text" id="username" />
     </label>
 
     <label>
       <span>Password</span>
-      <input type="password" />
+      <input type="password" id="password" />
     </label>
     <p class="forgot-pass">Forgot password?</p>
-    <button type="button" class="submit">Sign In</button>
+    <button type="button" onclick="login()" class="submit">Sign In</button>
 
   </div>
   <div class="sub-cont">
@@ -44,28 +46,28 @@
       <h2>Create your Account</h2>
       <label>
         <span>Name</span>
-        <input type="text" />
+        <input type="text" id="name_signup" />
       </label>
       <label>
         <span>User Name</span>
-        <input type="text" />
+        <input type="text" id="username_signup"/>
       </label>
       <label>
-        <select  class="custom-select">
+        <select  class="custom-select" id="role_signup">
           <option selected hidden >Role</option>
-          <option>Guest</option>
-          <option>Host</option>
+          <option value="2">Guest</option>
+          <option value="1">Host</option>
         </select>
       </label>
       <label>
         <span>Email</span>
-        <input type="email" />
+        <input type="email" id="email_signup"/>
       </label>
       <label>
         <span>Password</span>
-        <input type="password" />
+        <input type="password" id="password_signup"/>
       </label>
-      <button type="button" class="submit">Sign Up</button>
+      <button type="button" class="submit" onclick="signUp()">Sign Up</button>
 
     </div>
   </div>

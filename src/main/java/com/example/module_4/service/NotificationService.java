@@ -1,5 +1,6 @@
 package com.example.module_4.service;
 
+import com.example.module_4.model.House;
 import com.example.module_4.model.Notification;
 import com.example.module_4.repository.INotificationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,9 @@ public class NotificationService implements INotificationService{
     }
 
     @Override
-    public void save(Notification notification) {
+    public House save(Notification notification) {
       notificationRepository.save(notification);
+        return null;
     }
 
     @Override

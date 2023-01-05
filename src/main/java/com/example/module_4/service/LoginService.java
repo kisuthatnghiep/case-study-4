@@ -25,6 +25,7 @@ public class LoginService {
 
     public boolean signUp(User user) {
         if (!checkUserExist(user)){
+            user.setImg("/src/main/resources/static/img/avatarDefault.jpg");
             userRepository.save(user);
             return true;
         }return false;

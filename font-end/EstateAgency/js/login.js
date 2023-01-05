@@ -39,10 +39,13 @@ function login() {
 
 }    function getUser(){
     user = JSON.parse(window.localStorage.getItem("user"));
-    console.log(user.name)
     document.getElementById("UserDropdown").innerHTML = "<span>" + user.name + "</span>";
-
-    // $("#UserDropdown").val(user.name)
+    $(".user_name").text(user.name);
+    $("#user_phone").text(user.phone);
+    $("#user_email").text(user.email);
+    let srcImg = user.img;
+    document.getElementById("personal_avatar").innerHTML =
+        '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
 }
 
 function signUp() {
@@ -169,4 +172,61 @@ function displayHouse(house) {
             </div>
           </div>
         </div>`
+}
+
+function updateUser() {
+    let name = $("#name").val();
+    let phone = $("#phone").val();
+    let email = $("#email").val();
+    let newUser = {
+        id: user.id,
+        name: name,
+        username: user.username,
+        password: user.password,
+        phone: phone,
+        email: email,
+        role: user.role,
+        img: ""
+    }
+    let formData = new FormData();
+    formData.append("file", $('#avatar')[0].files[0])
+    formData.append("user", new Blob([JSON.stringify(newUser)]
+        , {type: 'application/json'}))
+    $.ajax({
+            headers: {
+                // 'Accept': 'application/json',
+                // 'Content-Type': 'application/json'
+            },
+            processData: false,
+            contentType: false,
+            enctype: "multipart/form-data",
+            type: "PUT",
+            url: "http://localhost:8080/update_user",
+            data: formData,
+            success: function (data) {
+                $("#name").val("");
+                $("#phone").val("");
+                $("#email").val("");
+                $("#avatar").val("");
+                window.localStorage.setItem("user", JSON.stringify(data));
+                getUser();
+                $('#ModalEdit').modal('hide');
+                Swal.fire('Changed!', '', 'success')
+            }
+        }
+    )
+    event.preventDefault();
+}
+
+function getDataInUpdateForm() {
+    let id = user.id
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/" + id,
+        success: function (data) {
+            $("#name").val(data.name);
+            $("#phone").val(data.phone);
+            $("#email").val(data.email);
+        }
+    });
 }

@@ -228,7 +228,7 @@
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">Margaret Stone</h1>
+            <h1 class="title-single user_name"></h1>
             <span class="color-text-a">Agent Immobiliari</span>
           </div>
         </div>
@@ -241,8 +241,8 @@
               <li class="breadcrumb-item">
                 <a href="#">Agents</a>
               </li>
-              <li class="breadcrumb-item active" aria-current="page">
-                Margaret Stone
+              <li class="breadcrumb-item active user_name" aria-current="page">
+
               </li>
             </ol>
           </nav>
@@ -259,16 +259,15 @@
         <div class="col-sm-12">
           <div class="row">
             <div class="col-md-6">
-              <div class="agent-avatar-box">
-                <img src="img/agent-7.jpg" alt="" class="agent-avatar img-fluid">
+              <div class="agent-avatar-box" id="personal_avatar">
               </div>
             </div>
             <div class="col-md-5 section-md-t3">
               <div class="agent-info-box">
                 <div class="agent-title">
                   <div class="title-box-d">
-                    <h3 class="title-d">Margaret Stone
-                      <br> Escala</h3>
+                    <h3 class="title-d user_name">
+                      </h3>
                   </div>
                 </div>
                 <div class="agent-content mb-3">
@@ -280,23 +279,11 @@
                   <div class="info-agents color-a">
                     <p>
                       <strong>Phone: </strong>
-                      <span class="color-text-a"> +54 356 945234 </span>
-                    </p>
-                    <p>
-                      <strong>Mobile: </strong>
-                      <span class="color-text-a"> 999 123 456 789</span>
+                      <span class="color-text-a" id="user_phone"> +54 356 945234 </span>
                     </p>
                     <p>
                       <strong>Email: </strong>
-                      <span class="color-text-a"> agents@example.com</span>
-                    </p>
-                    <p>
-                      <strong>skype: </strong>
-                      <span class="color-text-a"> Margaret.Es</span>
-                    </p>
-                    <p>
-                      <strong>Email: </strong>
-                      <span class="color-text-a"> agents@example.com</span>
+                      <span class="color-text-a" id="user_email"> agents@example.com</span>
                     </p>
                   </div>
                 </div>
@@ -328,7 +315,7 @@
                       </a>
                     </li>
                   </ul>
-                  <button data-bs-toggle="modal" data-bs-target="#ModalEdit" data-bs-whatever="@mdo" style="border: none; outline: none; padding: 5px" type="button" class="btn-success">Edit Profile</button>
+                  <button data-bs-toggle="modal" data-bs-target="#ModalEdit" data-bs-whatever="@mdo" style="border: none; outline: none; padding: 5px" type="button" onclick="getDataInUpdateForm()" class="btn-success">Edit Profile</button>
 
 
 <!--                  modal edit-->
@@ -342,17 +329,17 @@
                           <form>
                             <div class="mb-3">
                               <label for="oldPass" class="col-form-label">Name</label>
-                              <input type="password" class="form-control" id="name">
+                              <input type="text" class="form-control" id="name">
                             </div>
 
                             <div class="mb-3">
                               <label for="newPass" class="col-form-label">Phone</label>
-                              <input type="password" class="form-control" id="phone">
+                              <input type="text" class="form-control" id="phone">
                             </div>
 
                             <div class="mb-3">
                               <label for="passConfirm" class="col-form-label">Email</label>
-                              <input type="password" class="form-control" id="email">
+                              <input type="text" class="form-control" id="email">
                             </div>
 
                             <div class="mb-3">
@@ -364,7 +351,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-success" id="btn-edit" onclick="" >Submit</button>
+                          <button type="button" class="btn btn-success" id="btn-edit" onclick="updateUser()" >Submit</button>
                         </div>
                       </div>
                     </div>

@@ -326,6 +326,48 @@
                       </a>
                     </li>
                   </ul>
+                  <button data-bs-toggle="modal" data-bs-target="#ModalEdit" data-bs-whatever="@mdo" style="border: none; outline: none; padding: 5px" type="button" class="btn-success">Edit Profile</button>
+
+
+<!--                  modal edit-->
+                  <div  class="modal fade" id="ModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="ModalEditTotal">Edit Profile</h5>
+                        </div>
+                        <div class="modal-body">
+                          <form>
+                            <div class="mb-3">
+                              <label for="oldPass" class="col-form-label">Name</label>
+                              <input type="password" class="form-control" id="name">
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="newPass" class="col-form-label">Phone</label>
+                              <input type="password" class="form-control" id="phone">
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="passConfirm" class="col-form-label">Email</label>
+                              <input type="password" class="form-control" id="email">
+                            </div>
+
+                            <div class="mb-3">
+                              <label for="passConfirm" class="col-form-label">Avatar</label>
+                              <input type="file" class="form-control" id="avatar">
+                            </div>
+
+                          </form>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-success" id="btn-edit" onclick="" >Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </div>
@@ -542,6 +584,9 @@
                 </a>
               </li>
             </ul>
+
+
+
           </div>
           <div class="copyright-footer">
             <p class="copyright color-text-a">

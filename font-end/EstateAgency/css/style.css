@@ -2031,3 +2031,8 @@ footer .credits {
     font-size: 1.3rem;
   }
 }
+#list-house{
+  display: grid;
+  grid-template-columns: 33.33% 33.33% 33.33%;
+ float: left;
+}

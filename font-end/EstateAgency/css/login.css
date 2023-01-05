@@ -8,8 +8,26 @@
 
 body {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-    background: #ffffff;
 }
+body {
+    background: linear-gradient(-65deg, #f1e8af, #e7a0be, #e0b7f6, #83d5c2,#f7f7f7);
+    background-size: 400% 400%;
+    animation: gradient 10s ease infinite;
+    height: 100vh;
+}
+
+@keyframes gradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 
 input,
 button {
@@ -96,8 +114,7 @@ button {
     top: 0;
     width: 900px;
     height: 100%;
-    background-image: url("../img/property-8.jpg");
-    opacity: .8;
+    background-image: url("../img/1.jpg")  ;
     background-size: cover;
     -webkit-transition: -webkit-transform 1.2s ease-in-out;
     transition: transform 1.2s ease-in-out;
@@ -109,10 +126,13 @@ button {
     position: absolute;
     left: 0;
     top: 0;
-    width: 100%;
+    width: 900px;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background-size: contain;
+    -webkit-transition: -webkit-transform 1.2s ease-in-out;
+    background: rgba(61, 59, 59, 0.6);
 }
+
 
 .cont.s--signup .img:before {
     -webkit-transform: translate3d(640px, 0, 0);
@@ -294,4 +314,18 @@ input {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
 }
+
+
+.custom-select {
+    position: relative;
+    appearance: none;
+    padding: 10px;
+    border: 1px solid #ddd;
+    outline: none;
+    text-align: center;
+}
+
+
+
+
 

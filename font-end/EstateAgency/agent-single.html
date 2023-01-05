@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>EstateAgency Bootstrap Template</title>
+  <title>EstateAgency</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -13,7 +13,7 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <!-- Bootstrap CSS File -->
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -153,16 +153,24 @@
           <li class="nav-item">
             <a class="nav-link" href="property-grid.html">Property</a>
           </li>
+
+          <li class="nav-item">
+            <button class="nav-link" type="button" style="border: none;outline: none;background: none" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Change Password</button>
+          </li>
+
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Pages
+            <a style="color: #319849" class="nav-link dropdown-toggle" href="#" id="UserDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              User
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="property-single.html">Property Single</a>
-              <a class="dropdown-item active" href="agent-single.html">Agent Single</a>
+              <a class="dropdown-item" href="agent-single.html">Profile</a>
+              <a class="dropdown-item" href="property-single.html">Log Out</a>
             </div>
           </li>
+
+
+
 
         </ul>
       </div>
@@ -172,7 +180,43 @@
       </button>
     </div>
   </nav>
+
+
+
+
   <!--/ Nav End /-->
+  <div  class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="mb-3">
+              <label for="oldPass" class="col-form-label">Password:</label>
+              <input type="password" class="form-control" id="oldPass">
+            </div>
+
+            <div class="mb-3">
+              <label for="newPass" class="col-form-label">New Password:</label>
+              <input type="password" class="form-control" id="newPass">
+            </div>
+
+            <div class="mb-3">
+              <label for="passConfirm" class="col-form-label">New Password Confirm:</label>
+              <input type="password" class="form-control" id="passConfirm">
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" id="btn-create" onclick="" >Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!--/ Intro Single star /-->
   <section class="intro-single">

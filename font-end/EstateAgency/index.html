@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>EstateAgency Bootstrap Template</title>
+  <title>EstateAgency</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
@@ -13,6 +13,7 @@
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
   <!-- Bootstrap CSS File -->
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -152,19 +153,27 @@
           <li class="nav-item">
             <a class="nav-link" href="property-grid.html">Property</a>
           </li>
+
+
+
+
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-              aria-haspopup="true" aria-expanded="false">
-              Pages
+            <a style="color: #319849" class="nav-link dropdown-toggle" href="#" id="UserDropdown" role="button" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              User
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="property-single.html">Property Single</a>
-              <a class="dropdown-item" href="agent-single.html">Agent Single</a>
+              <a class="dropdown-item" href="agent-single.html">Profile</a>
+              <a class="dropdown-item" href="property-single.html">Log Out</a>
             </div>
           </li>
 
         </ul>
       </div>
+
+
+<!--      modal change pass-->
+
       <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
         data-target="#navbarTogglerDemo01" aria-expanded="false">
         <span class="fa fa-search" aria-hidden="true"></span>
@@ -560,11 +569,6 @@
           <div class="title-wrap d-flex justify-content-between">
             <div class="title-box">
               <h2 class="title-a">Latest News</h2>
-            </div>
-            <div class="title-link">
-              <a href="blog-grid.html">All News
-                <span class="ion-ios-arrow-forward"></span>
-              </a>
             </div>
           </div>
         </div>

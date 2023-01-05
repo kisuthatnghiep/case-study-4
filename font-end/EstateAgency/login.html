@@ -52,13 +52,7 @@
         <span>User Name</span>
         <input type="text" id="username_signup"/>
       </label>
-      <label>
-        <select  class="custom-select" id="role_signup">
-          <option selected hidden >Role</option>
-          <option value="2">Guest</option>
-          <option value="1">Host</option>
-        </select>
-      </label>
+
       <label>
         <span>Email</span>
         <input type="email" id="email_signup"/>
@@ -66,6 +60,16 @@
       <label>
         <span>Password</span>
         <input type="password" id="password_signup"/>
+      </label>
+
+      <label>
+        <div class="select">
+          <select  id="role_signup">
+            <option >You Are....</option>
+            <option value="1">Host</option>
+            <option value="2">Guest</option>
+          </select>
+        </div>
       </label>
       <button type="button" class="submit" onclick="signUp()">Sign Up</button>
 

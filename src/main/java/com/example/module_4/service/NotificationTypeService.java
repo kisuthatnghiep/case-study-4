@@ -1,7 +1,7 @@
 package com.example.module_4.service;
 
+import com.example.module_4.model.House;
 import com.example.module_4.model.NotificationType;
-import com.example.module_4.repository.INotificationRepository;
 import com.example.module_4.repository.INotificationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +24,9 @@ public class NotificationTypeService implements INotificationTypeService {
     }
 
     @Override
-    public void save(NotificationType notificationType) {
+    public House save(NotificationType notificationType) {
         notificationTypeRepository.save(notificationType);
+        return null;
     }
 
     @Override

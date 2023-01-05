@@ -1,5 +1,7 @@
 package com.example.module_4.service;
 
+import com.example.module_4.model.House;
+
 import java.util.Optional;
 
 public interface IGeneralService<T>{
@@ -7,7 +9,7 @@ public interface IGeneralService<T>{
 
     Optional<T> findById(Long id);
 
-    void save(T t);
+    House save(T t);
 
     void remove(Long id);
 }

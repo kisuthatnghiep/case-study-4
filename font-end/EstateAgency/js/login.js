@@ -249,12 +249,12 @@ function displayPersonalHouse(house) {
                     </li>
                     <li>
                                             <button id="btn-delete-house"
-                                                    style="background: none;outline: none;border: none"><i
+                                                    style="background: none;outline: none;border: none" onclick="deleteHouse(${house.id})"><i
                                                     class='fas fa-trash' style='font-size:16px'></i></button>
                                         </li>
                                         <li>
-                                            <button id="btn-edit-house"
-                                                    style="background: none;outline: none;border: none"><i
+                                            <button id="btn-edit-house" data-bs-toggle="modal" data-bs-target="#modalUpdateHouse" data-bs-whatever="@mdo"
+                                                    onclick="passIdUpdate(${house.id})" style="background: none;outline: none;border: none"><i
                                                     class='fas fa-pen-alt' style='font-size:16px'></i></button>
                                         </li>
                   </ul>
@@ -380,7 +380,7 @@ function createHouse() {
         description: description,
         price: price,
         host: user,
-        img: ""
+        avatar: ""
     }
     let formData = new FormData();
     formData.append("file", $('#avatar-House')[0].files[0])
@@ -397,7 +397,7 @@ function createHouse() {
         type: "POST",
         url: "http://localhost:8080/api/houses",
         data: formData,
-        success: function (data) {
+        success: function () {
             $("#nameHouse").val("")
             $("#addressHouse").val("")
             $("#descriptionHouse").val("")
@@ -409,4 +409,95 @@ function createHouse() {
         }
     })
     event.preventDefault();
+}
+
+function deleteHouse(id) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "DELETE",
+                url: "http://localhost:8080/api/houses/" + id,
+                success: function () {
+                    getPersonalHouse()
+                }
+            })
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+
+        }
+    })
+}
+
+function updateHouse(id){
+    let name = $("#nameUpdateHouse").val();
+    let address = $("#addressUpdateHouse").val();
+    let description = $("#descriptionUpdateHouse").val();
+    let price = $("#priceUpdateHouse").val();
+    let newHome = {
+        id: id,
+        name: name,
+        address: address,
+        description: description,
+        price: price,
+        host: user,
+        avatar: ""
+    }
+    let formData = new FormData();
+    formData.append("file", $('#avatar-UpdateHouse')[0].files[0])
+    formData.append("house", new Blob([JSON.stringify(newHome)]
+        , {type: 'application/json'}))
+    $.ajax({
+            headers: {
+                // 'Accept': 'application/json',
+                // 'Content-Type': 'application/json'
+            },
+            processData: false,
+            contentType: false,
+            enctype: "multipart/form-data",
+            type: "PUT",
+            url: "http://localhost:8080/api/houses/" + id,
+            data: formData,
+            success: function () {
+                $("#nameUpdateHouse").val("")
+                $("#addressUpdateHouse").val("")
+                $("#descriptionUpdateHouse").val("")
+                $("#priceUpdateHouse").val("")
+                $("#avatar-UpdateHouse").val("")
+                getPersonalHouse()
+                $('#modalUpdateHouse').modal('hide');
+                Swal.fire('Successfully!', '', 'success')
+            }
+    })
+    event.preventDefault();
+}
+
+let idUpdate = "";
+function passIdUpdate(id){
+    idUpdate = id;
+    getDataUpdateHouseForm()
+}
+
+function getDataUpdateHouseForm() {
+    let id = idUpdate
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/houses/" + id,
+        success: function (data) {
+            $("#nameUpdateHouse").val(data.name)
+            $("#addressUpdateHouse").val(data.address)
+            $("#descriptionUpdateHouse").val(data.description)
+            $("#priceUpdateHouse").val(data.price)
+        }
+    });
 }

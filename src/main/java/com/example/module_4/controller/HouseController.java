@@ -2,12 +2,16 @@ package com.example.module_4.controller;
 
 import com.example.module_4.model.House;
 import com.example.module_4.service.IHouseService;
-import org.hibernate.loader.plan.spi.Return;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +20,11 @@ import java.util.Optional;
 public class HouseController {
     @Autowired
     private IHouseService houseService;
+    @Value("${upload.path}")
+    private String link;
+    @Value("${display.path}")
+    private String displayLink;
+
 
     @GetMapping
     public ResponseEntity<Iterable<House>> showAll() {
@@ -26,11 +35,6 @@ public class HouseController {
         return new ResponseEntity<>(house, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<House> addHouse(@RequestBody House house) {
-        House houseAdd = houseService.save(house);
-        return new ResponseEntity<>(houseAdd, HttpStatus.CREATED);
-    }
 
     @GetMapping("{id}")
     public ResponseEntity<House> findOne(@PathVariable("id") Long id) {
@@ -60,5 +64,24 @@ public class HouseController {
         }
         houseService.remove(id);
         return new ResponseEntity<>(house.get(), HttpStatus.OK);
+    }
+
+    private void uploadFile(House house, MultipartFile file){
+        if (file != null) {
+            String fileName = file.getOriginalFilename();
+            try {
+                FileCopyUtils.copy(file.getBytes(), new File(link + fileName));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            house.setAvatar(displayLink + fileName);
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<String> create(@RequestPart("house") House house, @RequestPart(value = "file", required = false) MultipartFile file){
+        uploadFile(house, file);
+        houseService.save(house);
+        return new ResponseEntity<>("Create house successfully!", HttpStatus.CREATED);
     }
 }

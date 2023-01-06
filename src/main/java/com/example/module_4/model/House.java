@@ -18,6 +18,7 @@ public class House {
     private String address;
     private String description;
     private Double price;
+    private String avatar;
     @ManyToOne
     @JoinColumn(name = "host_id")
     private User host;

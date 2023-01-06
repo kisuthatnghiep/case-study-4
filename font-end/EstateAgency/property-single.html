@@ -10,7 +10,7 @@
   <!-- Favicons -->
   <link href="img/favicon.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
-
+  <script src="js/login.js"></script>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
 
@@ -34,7 +34,7 @@
   ======================================================= -->
 </head>
 
-<body>
+<body onload="getHouse()">
 
   <div class="click-closed"></div>
   <!--/ Form Search Star /-->
@@ -182,8 +182,8 @@
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">304 Blaster Up</h1>
-            <span class="color-text-a">Chicago, IL 606543</span>
+            <h1  class="title-single" id="title-name">304 Blaster Up</h1>
+            <span id="title-address" class="color-text-a">Chicago, IL 606543</span>
           </div>
         </div>
         <div class="col-md-12 col-lg-4">
@@ -195,7 +195,7 @@
               <li class="breadcrumb-item">
                 <a href="property-grid.html">Properties</a>
               </li>
-              <li class="breadcrumb-item active" aria-current="page">
+              <li  id="title-name2" class="breadcrumb-item active" aria-current="page">
                 304 Blaster Up
               </li>
             </ol>
@@ -230,7 +230,7 @@
                     <span class="ion-money">$</span>
                   </div>
                   <div class="card-title-c align-self-center">
-                    <h5 class="title-c">15000</h5>
+                    <h5 id="title-price" class="title-c">15000</h5>
                   </div>
                 </div>
               </div>
@@ -246,11 +246,11 @@
                   <ul class="list">
                     <li class="d-flex justify-content-between">
                       <strong>Property ID:</strong>
-                      <span>1134</span>
+                      <span id="title-id">1134</span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Location:</strong>
-                      <span>Chicago, IL 606543</span>
+                      <span id="title-address2">Chicago, IL 606543</span>
                     </li>
                     <li class="d-flex justify-content-between">
                       <strong>Property Type:</strong>
@@ -261,23 +261,10 @@
                       <span>Sale</span>
                     </li>
                     <li class="d-flex justify-content-between">
-                      <strong>Area:</strong>
-                      <span>340m
-                        <sup>2</sup>
-                      </span>
+                      <strong>Description:</strong>
+                      <span id="title-description">So Beautiful</span>
                     </li>
-                    <li class="d-flex justify-content-between">
-                      <strong>Beds:</strong>
-                      <span>4</span>
-                    </li>
-                    <li class="d-flex justify-content-between">
-                      <strong>Baths:</strong>
-                      <span>2</span>
-                    </li>
-                    <li class="d-flex justify-content-between">
-                      <strong>Garage:</strong>
-                      <span>1</span>
-                    </li>
+
                   </ul>
                 </div>
               </div>
@@ -342,7 +329,7 @@
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="property-agent">
-                <h4 class="title-agent">Anabella Geller</h4>
+                <h4 id="title-agent">Anabella Geller</h4>
                 <p class="color-text-a">
                   Nulla porttitor accumsan tincidunt. Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
                   dui. Quisque velit nisi,
@@ -351,20 +338,14 @@
                 <ul class="list-unstyled">
                   <li class="d-flex justify-content-between">
                     <strong>Phone:</strong>
-                    <span class="color-text-a">(222) 4568932</span>
+                    <span id="title-phone" class="color-text-a">(222) 4568932</span>
                   </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Mobile:</strong>
-                    <span class="color-text-a">777 287 378 737</span>
-                  </li>
+
                   <li class="d-flex justify-content-between">
                     <strong>Email:</strong>
-                    <span class="color-text-a">annabella@example.com</span>
+                    <span id="title-email" class="color-text-a">annabella@example.com</span>
                   </li>
-                  <li class="d-flex justify-content-between">
-                    <strong>Skype:</strong>
-                    <span class="color-text-a">Annabela.ge</span>
-                  </li>
+
                 </ul>
                 <div class="socials-a">
                   <ul class="list-inline">

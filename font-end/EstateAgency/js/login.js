@@ -65,6 +65,7 @@ function getHouse() {
     $("#title-phone").text(house.host.phone);
     $("#title-email").text(house.host.email);
     document.getElementById("img-agent").src = house.host.img
+    getUser()
 }
 
 function signUp() {
@@ -515,6 +516,30 @@ function getDataUpdateHouseForm() {
             $("#priceUpdateHouse").val(data.price)
         }
     });
+}
+
+function createImgHouse(){
+    let newImg = {
+        house: house,
+        img: ""
+    }
+    let formData = new FormData();
+    formData.append("file", $('#inputGroupFile01')[0].files[0])
+    formData.append("img", new Blob([JSON.stringify(newImg)]
+        , {type: 'application/json'}))
+    $.ajax({
+        processData: false,
+        contentType: false,
+        enctype: "multipart/form-data",
+        type: "POST",
+        url: "http://localhost:8080/img/house/",
+        data: formData,
+        success: function () {
+            $('#modalAddImg').modal('hide');
+            Swal.fire('Successfully!', '', 'success')
+        }
+    })
+    event.preventDefault();
 }
 
 // pagination

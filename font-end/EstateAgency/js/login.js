@@ -49,6 +49,22 @@ function getUser() {
     document.getElementById("personal_avatar").innerHTML =
         '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
 }
+let house
+function getHouse() {
+    house = JSON.parse(window.localStorage.getItem("house"));
+    $("#title-price").text(house.price);
+    $("#title-name").text(house.name);
+    $("#title-name2").text(house.name);
+    $("#title-address").text(house.address);
+    $("#title-address2").text(house.address);
+    $("#title-agent").text(house.host.name);
+    $("#title-id").text(house.id);
+    $("#title-description").text(house.description);
+    $("#title-phone").text(house.host.phone);
+    $("#title-email").text(house.host.email);
+
+
+}
 
 function signUp() {
     let name = $("#name_signup").val()
@@ -157,10 +173,10 @@ function getPersonalHouse() {
     getUser();
 }
 function displayPersonalHouse(house) {
-    return `  <div  class="col-md-12">
+    return `  <div  class="col-lg-12">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img width="360px" height="480px" src="${house.avatar}" alt="" class="img-a img-fluid">
+              <img width="360px" height="480px" src="${house.avatar}" alt="" class="col-lg-14">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -173,9 +189,9 @@ function displayPersonalHouse(house) {
                   <div class="price-box d-flex">
                     <span class="price-a">rent | ${house.price}</span>
                   </div>
-                  <a href="property-single.html" class="link-a">Click here to view
+                  <button onclick="houseDetail(${house.id})" style="background: none;outline: none;border: none" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
-                  </a>
+                  </button>
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
@@ -205,7 +221,7 @@ function displayHouse(house) {
     return `  <div  class="col-md-12">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img width="360px" height="480px" src="${house.avatar}" alt="" class="img-a img-fluid">
+              <img width="360px" height="480px" src="${house.avatar}" alt="" class="col-lg-14">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -218,13 +234,13 @@ function displayHouse(house) {
                   <div class="price-box d-flex">
                     <span class="price-a">rent | ${house.price}</span>
                   </div>
-                  <button href="property-single.html" class="link-a" onclick="houseDetail(${house.id})">Click here to view
+                  <button onclick="houseDetail(${house.id})" style="background: none;outline: none;border: none" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </button>
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
-                    <li>
+                    <li style="margin-right: 220px">
                       <h4 class="card-info-title">Description</h4>
                       <span>${house.description} </span>
                     </li>

@@ -46,8 +46,7 @@ function getUser() {
     $("#user_phone").text(user.phone);
     $("#user_email").text(user.email);
     let srcImg = user.img;
-    document.getElementById("personal_avatar").innerHTML =
-        '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
+    document.getElementById("personal_avatar").innerHTML = '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
 }
 
 let house
@@ -65,6 +64,7 @@ function getHouse() {
     $("#title-phone").text(house.host.phone);
     $("#title-email").text(house.host.email);
     document.getElementById("img-agent").src = house.host.img
+    getImgPersonalHouse()
     getUser()
 }
 
@@ -207,34 +207,6 @@ function getHouseHome() {
     getUser();
 }
 
-
-// function displayHouseHome(house) {
-//     return `
-//     <div class="carousel-item-a intro-item bg-image" style="background-image: url(${house.avatar})">
-//             <div class="overlay overlay-a"></div>
-//             <div class="intro-content display-table">
-//                 <div class="table-cell">
-//                     <div class="container">
-//                         <div class="row">
-//                             <div class="col-lg-8">
-//                                 <div class="intro-body">
-//                                     <p class="intro-title-top">Doral, Florida
-//                                         <br> 78345</p>
-//                                     <h1 class="intro-title mb-4">
-//                                         <span class="color-b">204 </span> Rino
-//                                         <br> Venda Road Five</h1>
-//                                     <p class="intro-subtitle intro-price">
-//                                         <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-//                                     </p>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     `
-// }
 
 function displayPersonalHouse(house) {
     return `  <div  class="col-lg-12 house_pagination">
@@ -420,7 +392,7 @@ function createHouse() {
             $("#priceHouse").val("")
             $("#avatar-House").val("")
             getPersonalHouse()
-            $('#modalAddHouseTitle').modal('hide');
+            $('#modalAddHouse').modal('hide');
             Swal.fire('Successfully!', '', 'success')
         }
     })
@@ -537,6 +509,52 @@ function createImgHouse(){
         success: function () {
             $('#modalAddImg').modal('hide');
             Swal.fire('Successfully!', '', 'success')
+            location.reload();
+        }
+    })
+    event.preventDefault();
+}
+
+function getImgPersonalHouse() {
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        type: "GET",
+        url: "http://localhost:8080/img/house/" + house.id,
+        success: function (data) {
+            let content = "<div id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
+                "            <div class=\"carousel-inner\">";
+            for (let i = data.length - 1; i >= 0; i--) {
+                if (i === data.length - 1) {
+                    content += `<div class="carousel-item active">
+                <img width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+              </div>`
+                } else {
+                    content += `<div class="carousel-item">
+                <img width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+              </div>`
+                }
+            }
+                content += `</div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>`
+                $(".personalImgHouse").html(content);
+        },
+        error: function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'registration Failed',
+            })
         }
     })
     event.preventDefault();

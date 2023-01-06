@@ -1,6 +1,8 @@
 package com.example.module_4.controller;
 
+import com.example.module_4.model.House;
 import com.example.module_4.model.ImgHouse;
+import com.example.module_4.service.IHouseService;
 import com.example.module_4.service.IImgHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -20,6 +23,8 @@ import java.io.IOException;
 public class ImgHouseController {
     @Autowired
     private IImgHouseService imgHouseService;
+    @Autowired
+    private IHouseService houseService;
     @Value("${upload.path}")
     private String link;
     @Value("${display.path}")
@@ -51,5 +56,14 @@ public class ImgHouseController {
         uploadFile(imgHouse, file);
         imgHouseService.save(imgHouse);
         return new ResponseEntity<>("Create Image successfully!", HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<List<ImgHouse>> findImgByHouse(@PathVariable Long id){
+        List<ImgHouse> imgHouses = imgHouseService.findImgHousesByHouse(houseService.findById(id).get());
+        if (!imgHouses.isEmpty()){
+            return new ResponseEntity<>(imgHouses, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

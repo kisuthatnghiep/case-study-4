@@ -26,7 +26,7 @@ function login() {
                 window.location.href = "index.html"
             }
         },
-        error: function(){
+        error: function () {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -37,7 +37,9 @@ function login() {
     event.preventDefault();
 
 
-}    function getUser(){
+}
+
+function getUser() {
     user = JSON.parse(window.localStorage.getItem("user"));
     document.getElementById("UserDropdown").innerHTML = "<span>" + user.name + "</span>";
     $(".user_name").text(user.name);
@@ -73,9 +75,9 @@ function signUp() {
         data: JSON.stringify(newUser),
         dataType: "text",
         success: function (data) {
-                Swal.fire(data, '', 'success')
+            Swal.fire(data, '', 'success')
         },
-        error: function(){
+        error: function () {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -86,7 +88,7 @@ function signUp() {
     event.preventDefault();
 }
 
-let user ="";
+let user = "";
 
 function changePassword() {
     let newPassword = $("#newPass").val()
@@ -111,7 +113,7 @@ function changePassword() {
             $('#exampleModal').modal('hide');
             Swal.fire(data, '', 'success')
         },
-        error: function(){
+        error: function () {
             $('#exampleModal').modal('hide');
             Swal.fire({
                 icon: 'error',
@@ -128,7 +130,6 @@ function getAllHouse() {
         type: "GET",
         url: "http://localhost:8080/api/houses",
         success: function (houses) {
-
             let content = '';
             for (let i = 0; i < houses.length; i++) {
                 content += displayHouse(houses[i]);
@@ -139,12 +140,27 @@ function getAllHouse() {
     getUser();
 }
 
-
-function displayHouse(house) {
+function getPersonalHouse() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/houses",
+        success: function (houses) {
+            let content = '';
+            for (let i = 0; i < houses.length; i++) {
+                if (houses[i].host.id === user.id){
+                content += displayPersonalHouse(houses[i]);
+                }
+            }
+            document.getElementById('list-house').innerHTML = content;
+        }
+    });
+    getUser();
+}
+function displayPersonalHouse(house) {
     return `  <div  class="col-md-12">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img src="img/property-1.jpg" alt="" class="img-a img-fluid">
+              <img width="360px" height="480px" src="${house.avatar}" alt="" class="img-a img-fluid">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -160,6 +176,51 @@ function displayHouse(house) {
                   <a href="property-single.html" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </a>
+                </div>
+                <div class="card-footer-a">
+                  <ul class="card-info d-flex justify-content-around">
+                    <li>
+                      <h4 class="card-info-title">Description</h4>
+                      <span>${house.description} </span>
+                    </li>
+                    <li>
+                                            <button id="btn-delete-house"
+                                                    style="background: none;outline: none;border: none"><i
+                                                    class='fas fa-trash' style='font-size:16px'></i></button>
+                                        </li>
+                                        <li>
+                                            <button id="btn-edit-house"
+                                                    style="background: none;outline: none;border: none"><i
+                                                    class='fas fa-pen-alt' style='font-size:16px'></i></button>
+                                        </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>`
+}
+
+function displayHouse(house) {
+    return `  <div  class="col-md-12">
+          <div class="card-box-a card-shadow">
+            <div class="img-box-a">
+              <img width="360px" height="480px" src="${house.avatar}" alt="" class="img-a img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-overlay-a-content">
+                <div class="card-header-a">
+                  <h2 class="card-title-a">
+                    <a href="#">${house.name}</a>
+                  </h2>
+                </div>
+                <div class="card-body-a">
+                  <div class="price-box d-flex">
+                    <span class="price-a">rent | ${house.price}</span>
+                  </div>
+                  <button href="property-single.html" class="link-a" onclick="houseDetail(${house.id})">Click here to view
+                    <span class="ion-ios-arrow-forward"></span>
+                  </button>
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
@@ -219,6 +280,18 @@ function updateUser() {
     event.preventDefault();
 }
 
+function houseDetail(id){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/houses/"+ id,
+        success: function (house) {
+            window.localStorage.setItem("house", JSON.stringify(house));
+            window.location.href = "property-single.html"
+
+        }
+    });
+}
+
 function getDataInUpdateForm() {
     let id = user.id
     $.ajax({
@@ -230,4 +303,46 @@ function getDataInUpdateForm() {
             $("#email").val(data.email);
         }
     });
+}
+
+function createHouse() {
+    let name = $("#nameHouse").val();
+    let address = $("#addressHouse").val();
+    let description = $("#descriptionHouse").val();
+    let price = $("#priceHouse").val();
+    let newHome = {
+        name: name,
+        address: address,
+        description: description,
+        price: price,
+        host: user,
+        img: ""
+    }
+    let formData = new FormData();
+    formData.append("file", $('#avatar-House')[0].files[0])
+    formData.append("house", new Blob([JSON.stringify(newHome)]
+        , {type: 'application/json'}))
+    $.ajax({
+        headers: {
+            // 'Accept': 'application/json',
+            // 'Content-Type': 'application/json'
+        },
+        processData: false,
+        contentType: false,
+        enctype: "multipart/form-data",
+        type: "POST",
+        url: "http://localhost:8080/api/houses",
+        data: formData,
+        success: function (data) {
+            $("#nameHouse").val("")
+            $("#addressHouse").val("")
+            $("#descriptionHouse").val("")
+            $("#priceHouse").val("")
+            $("#avatar-House").val("")
+            getPersonalHouse()
+            $('#modalAddHouseTitle').modal('hide');
+            Swal.fire('Successfully!', '', 'success')
+        }
+    })
+    event.preventDefault();
 }

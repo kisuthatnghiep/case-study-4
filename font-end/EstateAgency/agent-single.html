@@ -438,6 +438,53 @@
                 </div>
             </div>
 
+<!--            modal update house-->
+            <div class="modal fade" id="modalUpdateHouse" tabindex="-1"
+                 aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalUpdateHouseTitle">Update House</h5>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="oldPass" class="col-form-label">Name</label>
+                                    <input type="text" class="form-control" id="nameUpdateHouse">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="newPass" class="col-form-label">Price</label>
+                                    <input type="text" class="form-control" id="priceUpdateHouse">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="passConfirm" class="col-form-label">Address</label>
+                                    <input type="text" class="form-control" id="addressUpdateHouse">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="passConfirm" class="col-form-label">Description</label>
+                                    <input type="text" class="form-control" id="descriptionUpdateHouse">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="passConfirm" class="col-form-label">Avatar</label>
+                                    <input type="file" class="form-control" id="avatar-UpdateHouse">
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                Close
+                            </button>
+                            <button type="button" class="btn btn-success" id="btn-update-house"
+                                    onclick="updateHouse(idUpdate)">Submit
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <div class="row property-grid grid">
 

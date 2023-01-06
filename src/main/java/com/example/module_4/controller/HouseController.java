@@ -4,6 +4,7 @@ import com.example.module_4.model.House;
 import com.example.module_4.service.IHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.FileCopyUtils;
@@ -17,6 +18,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/houses")
+@PropertySource("classpath:application.properties")
 public class HouseController {
     @Autowired
     private IHouseService houseService;
@@ -46,14 +48,18 @@ public class HouseController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<House> editHouse(@RequestBody House houseEdit, @PathVariable("id") Long id) {
-        Optional<House> house = houseService.findById(id);
-        if (!house.isPresent()) {
+    public ResponseEntity<House> editHouse(@RequestPart House house, @PathVariable("id") Long id, @RequestPart(value = "file", required = false) MultipartFile file) {
+        Optional<House> oldHouse = houseService.findById(id);
+        uploadFile(house, file);
+        if (!oldHouse.isPresent()) {
             new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        houseEdit.setId(house.get().getId());
-        houseEdit = houseService.save(houseEdit);
-        return new ResponseEntity<>(houseEdit, HttpStatus.OK);
+        if (file == null){
+            house.setAvatar(oldHouse.get().getAvatar());
+        }
+        house = houseService.save(house);
+        return new ResponseEntity<>(house, HttpStatus.OK);
+
     }
 
     @DeleteMapping("{id}")

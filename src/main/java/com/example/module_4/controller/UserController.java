@@ -33,7 +33,6 @@ public class UserController {
         if (file == null){
             user.setImg(oldUser.get().getImg());
         }
-//        user.setId(oldUser.get().getId());
         userService.save(user);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }

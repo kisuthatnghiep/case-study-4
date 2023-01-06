@@ -151,6 +151,8 @@ function getAllHouse() {
                 content += displayHouse(houses[i]);
             }
             document.getElementById('list-house').innerHTML = content;
+            list = document.getElementsByClassName('house_pagination');
+            loadItem();
         }
     });
     getUser();
@@ -218,7 +220,7 @@ function displayPersonalHouse(house) {
 }
 
 function displayHouse(house) {
-    return `  <div  class="col-md-12">
+    return `  <div  class="col-md-12 house_pagination">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
               <img width="360px" height="480px" src="${house.avatar}" alt="" class="col-lg-14">
@@ -452,4 +454,56 @@ function getDataUpdateHouseForm() {
             $("#priceUpdateHouse").val(data.price)
         }
     });
+}
+
+// pagination
+let thisPage = 1;
+let limit = 3;
+let list = [];
+
+function loadItem() {
+    let beginGet = limit * (thisPage - 1);
+    let endGet = limit * thisPage - 1;
+    for (let i = 0; i < list.length; i++){
+        if (i >= beginGet && i <= endGet) {
+            list[i].style.display = 'grid';
+        } else {
+            list[i].style.display = 'none';
+        }
+    }
+    listPage();
+}
+
+function listPage() {
+    let count = Math.ceil(list.length / limit);
+    document.querySelector('.listPage').innerHTML = '';
+
+    if (thisPage !== 1) {
+        let prev = document.createElement('li');
+        prev.innerText = 'PREV';
+        prev.setAttribute('onclick', "changePage(" + (thisPage - 1) + ")");
+        document.querySelector('.listPage').appendChild(prev);
+    }
+
+    for ( i = 1; i <= count; i++) {
+        let newPage = document.createElement('li');
+        newPage.innerText = i;
+        if (i === thisPage) {
+            newPage.classList.add('active');
+        }
+        newPage.setAttribute('onclick', "changePage(" + i + ")");
+        document.querySelector('.listPage').appendChild(newPage);
+    }
+
+    if (thisPage !== count) {
+        let next = document.createElement('li');
+        next.innerText = 'NEXT';
+        next.setAttribute('onclick', "changePage(" + (thisPage + 1) + ")");
+        document.querySelector('.listPage').appendChild(next);
+    }
+}
+
+function changePage(i) {
+    thisPage = i;
+    loadItem();
 }

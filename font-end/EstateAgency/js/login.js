@@ -47,6 +47,23 @@ function login() {
     document.getElementById("personal_avatar").innerHTML =
         '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
 }
+let house
+
+function getHouse(){
+    house = JSON.parse(window.localStorage.getItem("house"));
+    $("#title-price").text(house.price);
+    $("#title-address").text(house.address);
+    $("#title-address2").text(house.address);
+    $("#title-name").text(house.name);
+    $("#title-name2").text(house.name);
+    $("#title-id").text(house.id);
+    $("#title-description").text(house.description);
+    $("#title-agent").text(house.host.name);
+    $("#title-phone").text(house.host.phone);
+    $("#title-email").text(house.host.email);
+
+}
+
 
 function signUp() {
     let name = $("#name_signup").val()
@@ -124,11 +141,13 @@ function changePassword() {
 }
 
 function getAllHouse() {
+
     $.ajax({
+
         type: "GET",
         url: "http://localhost:8080/api/houses",
         success: function (houses) {
-            getUser()
+
             let content = '';
             for (let i = 0; i < houses.length; i++) {
                 content += displayHouse(houses[i]);
@@ -136,11 +155,12 @@ function getAllHouse() {
             document.getElementById('list-house').innerHTML = content;
         }
     });
+    getUser();
 }
 
 
 function displayHouse(house) {
-    return `  <div  class="col-md-12">
+    return `  <div  class="col-md-12" ">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
               <img src="img/property-1.jpg" alt="" class="img-a img-fluid">
@@ -156,9 +176,9 @@ function displayHouse(house) {
                   <div class="price-box d-flex">
                     <span class="price-a">rent | ${house.price}</span>
                   </div>
-                  <a href="property-single.html" class="link-a">Click here to view
+                  <button onclick="houseDetail(${house.id})" style="outline: none;background: none;border: none"  href="" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
-                  </a>
+                  </button>
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
@@ -216,6 +236,18 @@ function updateUser() {
         }
     )
     event.preventDefault();
+}
+
+function houseDetail(id){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/houses/"+ id,
+        success: function (house) {
+            window.localStorage.setItem("house", JSON.stringify(house));
+            window.location.href = "property-single.html"
+
+        }
+    });
 }
 
 function getDataInUpdateForm() {

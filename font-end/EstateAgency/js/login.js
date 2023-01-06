@@ -201,7 +201,7 @@ function displayPersonalHouse(house) {
                     </li>
                     <li>
                                             <button id="btn-delete-house"
-                                                    style="background: none;outline: none;border: none" onclick="deleteProduct(${house.id})"><i
+                                                    style="background: none;outline: none;border: none" onclick="deleteHouse(${house.id})"><i
                                                     class='fas fa-trash' style='font-size:16px'></i></button>
                                         </li>
                                         <li>
@@ -363,7 +363,7 @@ function createHouse() {
     event.preventDefault();
 }
 
-function deleteProduct(id) {
+function deleteHouse(id) {
     Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -427,7 +427,7 @@ function updateHouse(id){
                 $("#priceUpdateHouse").val("")
                 $("#avatar-UpdateHouse").val("")
                 getPersonalHouse()
-                $('#modalUpdateHouseTitle').modal('hide');
+                $('#modalUpdateHouse').modal('hide');
                 Swal.fire('Successfully!', '', 'success')
             }
     })

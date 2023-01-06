@@ -64,8 +64,7 @@ function getHouse() {
     $("#title-description").text(house.description);
     $("#title-phone").text(house.host.phone);
     $("#title-email").text(house.host.email);
-
-
+    document.getElementById("img-agent").src = house.host.img
 }
 
 function signUp() {
@@ -181,44 +180,56 @@ function getHouseHome() {
         type: "GET",
         url: "http://localhost:8080/api/houses",
         success: function (houses) {
-            let content = '';
-            for (let i = 0; i < 3; i++) {
-                content += displayHouseHome(houses[i]);
-            }
-            document.getElementById('list-house-home').innerHTML = content;
+
+                $('.bg-image1').css('background-image', 'url(' + houses[0].avatar + ')');
+                $('.bg-image2').css('background-image', 'url(' + houses[1].avatar + ')');
+                $('.bg-image3').css('background-image', 'url(' + houses[2].avatar + ')');
+                $('.address1 ').text(houses[0].address);
+                $('.address2 ').text(houses[1].address);
+                $('.address3 ').text(houses[2].address);
+                $('.id1 ').text(houses[0].id);
+                $('.id2 ').text(houses[1].id);
+                $('.id3 ').text(houses[2].id);
+                $('.price1 ').text(houses[0].price);
+                $('.price2 ').text(houses[1].price);
+                $('.price3 ').text(houses[2].price);
+                $('.name-house1 ').text(houses[0].name);
+                $('.name-house2 ').text(houses[1].name);
+                $('.name-house3 ').text(houses[2].name);
+
         }
     });
     getUser();
 }
 
 
-function displayHouseHome(house) {
-    return `
-    <div class="carousel-item-a intro-item bg-image" style="background-image: url(${house.avatar})">
-            <div class="overlay overlay-a"></div>
-            <div class="intro-content display-table">
-                <div class="table-cell">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <div class="intro-body">
-                                    <p class="intro-title-top">${house.address}
-                                        <br>${house.id}</p>
-                                    <h1 class="intro-title mb-4">
-                                        <span class="color-b">
-                                        ${house.name}
-                                    <p class="intro-subtitle intro-price">
-                                        <a href="#"><span class="price-a">rent | $ ${house.price}</span></a>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-    </div>
-    `
-}
+// function displayHouseHome(house) {
+//     return `
+//     <div class="carousel-item-a intro-item bg-image" style="background-image: url(${house.avatar})">
+//             <div class="overlay overlay-a"></div>
+//             <div class="intro-content display-table">
+//                 <div class="table-cell">
+//                     <div class="container">
+//                         <div class="row">
+//                             <div class="col-lg-8">
+//                                 <div class="intro-body">
+//                                     <p class="intro-title-top">Doral, Florida
+//                                         <br> 78345</p>
+//                                     <h1 class="intro-title mb-4">
+//                                         <span class="color-b">204 </span> Rino
+//                                         <br> Venda Road Five</h1>
+//                                     <p class="intro-subtitle intro-price">
+//                                         <a href="#"><span class="price-a">rent | $ 12.000</span></a>
+//                                     </p>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     `
+// }
 
 function displayPersonalHouse(house) {
     return `  <div  class="col-lg-12">

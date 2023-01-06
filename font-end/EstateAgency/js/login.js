@@ -49,7 +49,9 @@ function getUser() {
     document.getElementById("personal_avatar").innerHTML =
         '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
 }
+
 let house
+
 function getHouse() {
     house = JSON.parse(window.localStorage.getItem("house"));
     $("#title-price").text(house.price);
@@ -163,8 +165,8 @@ function getPersonalHouse() {
         success: function (houses) {
             let content = '';
             for (let i = 0; i < houses.length; i++) {
-                if (houses[i].host.id === user.id){
-                content += displayPersonalHouse(houses[i]);
+                if (houses[i].host.id === user.id) {
+                    content += displayPersonalHouse(houses[i]);
                 }
             }
             document.getElementById('list-house').innerHTML = content;
@@ -172,6 +174,52 @@ function getPersonalHouse() {
     });
     getUser();
 }
+
+
+function getHouseHome() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/houses",
+        success: function (houses) {
+            let content = '';
+            for (let i = 0; i < 3; i++) {
+                content += displayHouseHome(houses[i]);
+            }
+            document.getElementById('list-house-home').innerHTML = content;
+        }
+    });
+    getUser();
+}
+
+
+function displayHouseHome(house) {
+    return `
+    <div class="carousel-item-a intro-item bg-image" style="background-image: url(${house.avatar})">
+            <div class="overlay overlay-a"></div>
+            <div class="intro-content display-table">
+                <div class="table-cell">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="intro-body">
+                                    <p class="intro-title-top">${house.address}
+                                        <br>${house.id}</p>
+                                    <h1 class="intro-title mb-4">
+                                        <span class="color-b">
+                                        ${house.name}
+                                    <p class="intro-subtitle intro-price">
+                                        <a href="#"><span class="price-a">rent | $ ${house.price}</span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    `
+}
+
 function displayPersonalHouse(house) {
     return `  <div  class="col-lg-12">
           <div class="card-box-a card-shadow">
@@ -296,10 +344,10 @@ function updateUser() {
     event.preventDefault();
 }
 
-function houseDetail(id){
+function houseDetail(id) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/houses/"+ id,
+        url: "http://localhost:8080/api/houses/" + id,
         success: function (house) {
             window.localStorage.setItem("house", JSON.stringify(house));
             window.location.href = "property-single.html"

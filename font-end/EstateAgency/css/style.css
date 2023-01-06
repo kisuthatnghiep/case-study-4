@@ -2034,15 +2034,6 @@ footer .credits {
 #list-house{
   display: grid;
   grid-template-columns: 33.33% 33.33% 33.33%;
- float: left;
 }
-#list-house{
-  display: grid;
-  grid-template-columns: 33.33% 33.33% 33.33%;
-  float: left;
-}
-#list-house-host{
-  display: grid;
-  grid-template-columns: 33.33% 33.33% 33.33%;
-  float: left;
-}
+
+

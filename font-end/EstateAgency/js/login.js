@@ -1,9 +1,9 @@
 let container = document.getElementById('container')
 
-toggle = () => {
-    container.classList.toggle('sign-in')
-    container.classList.toggle('sign-up')
-}
+    toggle = () => {
+        container.classList.toggle('sign-in')
+        container.classList.toggle('sign-up')
+    }
 
 function login() {
     let username = $("#username").val()
@@ -211,12 +211,10 @@ function getHouseHome() {
             $('.name-house2 ').text(houses[1].name);
             $('.name-house3 ').text(houses[2].name);
             let content = '';
-            for (let i = houses.length - 1; i >= 0; i--) {
+            for (let i = houses.length - 1; i >= houses.length - 3; i--) {
                 content += displayHouse(houses[i]);
             }
             document.getElementById('list-house').innerHTML = content;
-            list = document.getElementsByClassName('house_pagination');
-            loadItem();
         }
     });
     getUser();
@@ -658,8 +656,9 @@ function loadItem() {
 
 function listPage() {
     let count = Math.ceil(list.length / limit);
+    if (document.querySelector('.listPage') !== null){
     document.querySelector('.listPage').innerHTML = '';
-
+    }
     if (thisPage !== 1) {
         let prev = document.createElement('li');
         prev.innerText = 'PREV';

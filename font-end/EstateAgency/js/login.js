@@ -74,11 +74,7 @@ function getHouse() {
     getImgPersonalHouse()
     getListGuestRent()
     getUser()
-    if (user.id !== house.host.id) {
-        $(".identify").hide();
-    } else {
-        $(".identify").show();
-    }
+
 }
 
 function signUp() {
@@ -214,7 +210,6 @@ function getHouseHome() {
             $('.name-house1 ').text(houses[0].name);
             $('.name-house2 ').text(houses[1].name);
             $('.name-house3 ').text(houses[2].name);
-            getTop3();
             let content = '';
             for (let i = houses.length - 1; i >= 0; i--) {
                 content += displayHouse(houses[i]);
@@ -225,6 +220,7 @@ function getHouseHome() {
         }
     });
     getUser();
+    getTop3();
 }
 
 function getTop3() {
@@ -286,6 +282,10 @@ function displayPersonalHouse(house) {
           </div>
         </div>`
 }
+
+
+
+
 
 function displayHouse(house) {
     return `  <div  class="col-md-12 house_pagination">
@@ -563,26 +563,26 @@ function getImgPersonalHouse() {
         type: "GET",
         url: "http://localhost:8080/img/house/" + house.id,
         success: function (data) {
-            let content = " <div style='height: 700px' id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
-                "            <div class=\"carousel-inner\">";
+            let content = "<div id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
+                "            <div style='height: 650px;margin-bottom: 50px' class=\"carousel-inner\">";
             for (let i = data.length - 1; i >= 0; i--) {
                 if (i === data.length - 1) {
                     content += `<div class="carousel-item active">
-                <img width="800px" height="600px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+                <img  width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
                 } else {
-                    content += `<div class=carousel-item">
-                <img width="800px" height="600px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+                    content += `<div class="carousel-item">
+                <img width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
                 }
             }
             content += `</div>
-            <button  class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-              <span style="background-color: #66a973; border-radius: 100px; " class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button  class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-              <span style="background-color: #66a973;border-radius: 100px;" class="carousel-control-next-icon" aria-hidden="true"></span>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
           </div>`

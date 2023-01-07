@@ -45,6 +45,8 @@ function getUser() {
     $(".user_name").text(user.name);
     $("#user_phone").text(user.phone);
     $("#user_email").text(user.email);
+
+
     let srcImg = user.img;
     document.getElementById("personal_avatar").innerHTML = '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
 }
@@ -546,26 +548,26 @@ function getImgPersonalHouse() {
         type: "GET",
         url: "http://localhost:8080/img/house/" + house.id,
         success: function (data) {
-            let content = "<div id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
+            let content = " <div style='height: 700px' id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
                 "            <div class=\"carousel-inner\">";
             for (let i = data.length - 1; i >= 0; i--) {
                 if (i === data.length - 1) {
                     content += `<div class="carousel-item active">
-                <img width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+                <img width="800px" height="600px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
                 } else {
-                    content += `<div class="carousel-item">
-                <img width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+                    content += `<div class=carousel-item">
+                <img width="800px" height="600px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
                 }
             }
                 content += `</div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <button  class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <span style="background-color: #66a973; border-radius: 100px; " class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <button  class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <span style="background-color: #66a973;border-radius: 100px;" class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Next</span>
             </button>
           </div>`
@@ -591,6 +593,8 @@ function getListGuestRent(){
         type: "GET",
         url: "http://localhost:8080/rent/" + house.id,
         success: function (data) {
+
+
             let content = "";
             for (let i = 0; i < data.length; i++){
                 content += "<tr>\n" +
@@ -612,7 +616,10 @@ function getListGuestRent(){
             }
         },
         error: function () {
-            $(".tableListRent").text("Empty");
+            let status = "<div style=\"background-color: #66a973;width: 280px; height: 30px;border-radius:15px;text-align:center;padding-top: 2px;color: white\">\n" +
+                "              <span > The house has not been rented</span>\n" +
+                "                </div>";
+            $(".tableListRent").html(status);
         }
     })
     event.preventDefault();

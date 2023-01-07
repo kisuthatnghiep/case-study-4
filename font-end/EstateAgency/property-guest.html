@@ -214,27 +214,27 @@
 
   <!--/ Intro Single End /-->
 
-  <div class="modal fade" id="modalAddImg" tabindex="-1"
+
+
+  <div class="modal fade" id="modalRent" tabindex="-1"
        aria-labelledby="exampleModalLabel">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="ModalEditTotal">Add Image</h5>
+          <h5 class="modal-title" id="ModalEditTotal">Rent</h5>
         </div>
         <div class="modal-body">
           <form>
             <div class="mb-3">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                </div>
-                <div class="custom-file">
-                  <input type="file" class="custom-file-input" id="inputGroupFile01"
-                         aria-describedby="inputGroupFileAddon01">
-                  <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                </div>
-              </div>
+              <label for="dateStart" class="col-form-label">Date Start</label>
+              <input type="date" class="form-control" id="dateStart">
             </div>
+
+            <div class="mb-3">
+              <label for="dateEnd" class="col-form-label">Date End</label>
+              <input type="date" class="form-control" id="dateEnd">
+            </div>
+
           </form>
         </div>
         <div class="modal-footer">
@@ -254,9 +254,9 @@
 
     <div class="container">
 
-      <button data-bs-toggle="modal" data-bs-target="#modalAddImg" data-bs-whatever="@mdo"
+      <button data-bs-toggle="modal" data-bs-target="#modalRent" data-bs-whatever="@mdo"
               style="border: none; outline: none; margin: 5px 0px 30px 0px;padding: 7px" type="button"
-              onclick="" class="btn-success">Add Image
+              onclick="" class="btn-success">Rent
       </button>
 
 
@@ -437,32 +437,7 @@
             </div>
 
           </div>
-          <div style="margin-top: 30px" class="row section-t3">
-            <div class="col-sm-12">
-              <div class="title-box-d">
-                <h3 class="title-d">House Retal List</h3>
-              </div>
-            </div>
-          </div>
 
-
-          <div class="tableListRent">
-            <table class="table">
-              <thead class="thead-dark">
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Guest</th>
-                <th scope="col">Start Day</th>
-                <th scope="col">End Day</th>
-                <th scope="col">Status</th>
-                <th scope="col">Check In</th>
-              </tr>
-              </thead>
-              <tbody id="listRentHouse">
-
-              </tbody>
-            </table>
-          </div>
         </div>
 
 

@@ -2043,4 +2043,8 @@ input[type= "file"]{
   grid-template-columns: 33.33% 33.33% 33.33%;
 }
 
+#tr-money th{
+  background: white;
+  color: black;
+}
 

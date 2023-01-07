@@ -381,40 +381,24 @@
 
             <div class="col-md-12 section-t8">
                 <div class="title-box-d">
-                    <h3 class="title-d">Statistical</h3>
+                    <h3 class="title-d">Rental History</h3>
                 </div>
 
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
-                        <th style="color: #66a973" scope="col">Month</th>
-                        <th scope="col">1</th>
-                        <th scope="col">2</th>
-                        <th scope="col">3</th>
-                        <th scope="col">4</th>
-                        <th scope="col">5</th>
-                        <th scope="col">6</th>
-                        <th scope="col">7</th>
-                        <th scope="col">8</th>
-                        <th scope="col">9</th>
-                        <th scope="col">10</th>
-                        <th scope="col">11</th>
-                        <th scope="col">12</th>
+                        <th style="color: #66a973" scope="col">House</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Start Day</th>
+                        <th scope="col">End Day</th>
+
                     </tr>
                     <tr id="tr-money">
                         <th style="color: #66a973" scope="col">Money</th>
                         <th scope="col">100000</th>
                         <th scope="col">200000</th>
                         <th scope="col">300000</th>
-                        <th scope="col">400000</th>
-                        <th scope="col">500000</th>
-                        <th scope="col">500000</th>
-                        <th scope="col">500000</th>
-                        <th scope="col">600000</th>
-                        <th scope="col">700000</th>
-                        <th scope="col">800000</th>
-                        <th scope="col">900000</th>
-                        <th scope="col">100000</th>
+
                     </tr>
                     </thead>
                     <tbody id="listRentHouse">
@@ -426,136 +410,13 @@
 
 
 
-            <div class="col-md-12 section-t8">
-                <div class="title-box-d">
-                    <h3 class="title-d">My Properties (2)</h3>
-                </div>
-
-                <button data-bs-toggle="modal" data-bs-target="#modalAddHouse" data-bs-whatever="@mdo"
-                        style="border: none; outline: none; padding: 5px" type="button"
-                        onclick="getDataInUpdateForm()" class="btn-success">Add House
-                </button>
-
-            </div>
 
 
-            <div class="modal fade" id="modalAddHouse" tabindex="-1"
-                 aria-labelledby="exampleModalLabel">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalAddHouseTitle">Add House</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="oldPass" class="col-form-label">Name</label>
-                                    <input type="text" class="form-control" id="nameHouse">
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="newPass" class="col-form-label">Price</label>
-                                    <input type="text" class="form-control" id="priceHouse">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="passConfirm" class="col-form-label">Address</label>
-                                    <input type="text" class="form-control" id="addressHouse">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="passConfirm" class="col-form-label">Description</label>
-                                    <input type="text" class="form-control" id="descriptionHouse">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="passConfirm" class="col-form-label">Avatar</label>
-                                    <input type="file" class="form-control" id="avatar-House">
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="button" class="btn btn-success" id="btn-add-house"
-                                    onclick="createHouse()">Submit
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 <!--            modal update house-->
-            <div class="modal fade" id="modalUpdateHouse" tabindex="-1"
-                 aria-labelledby="exampleModalLabel">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalUpdateHouseTitle">Update House</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label for="oldPass" class="col-form-label">Name</label>
-                                    <input type="text" class="form-control" id="nameUpdateHouse">
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="newPass" class="col-form-label">Price</label>
-                                    <input type="text" class="form-control" id="priceUpdateHouse">
-                                </div>
 
-                                <div class="mb-3">
-                                    <label for="passConfirm" class="col-form-label">Address</label>
-                                    <input type="text" class="form-control" id="addressUpdateHouse">
-                                </div>
-                                <div class="mb-3">
-                                    <label for="passConfirm" class="col-form-label">Description</label>
-                                    <input type="text" class="form-control" id="descriptionUpdateHouse">
-                                </div>
-
-                                <div class="mb-3">
-                                    <label for="passConfirm" class="col-form-label">Avatar</label>
-                                    <input type="file" class="form-control" id="avatar-UpdateHouse">
-                                </div>
-
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                Close
-                            </button>
-                            <button type="button" class="btn btn-success" id="btn-update-house"
-                                    onclick="updateHouse(idUpdate)">Submit
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row property-grid grid">
-                <div style="margin-left: 180px" class="col-sm-10">
-                    <div class="grid-option">
-                        <form>
-                            <select class="custom-select">
-                                <option selected>All</option>
-                                <option value="1">New to Old</option>
-                                <option value="2">For Rent</option>
-                                <option value="3">For Sale</option>
-                            </select>
-                        </form>
-                    </div>
-                </div>
-                <div class="col-lg-12" id="list-house" style="width: 1100px;">
-                </div>
-                <div class="col-sm-12">
-                    <ul class="listPage">
-
-                    </ul>
-                </div>
-
-            </div>
         </div>
     </div>
 </section>

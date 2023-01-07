@@ -45,6 +45,8 @@ function getUser() {
     $(".user_name").text(user.name);
     $("#user_phone").text(user.phone);
     $("#user_email").text(user.email);
+
+
     let srcImg = user.img;
     document.getElementById("personal_avatar").innerHTML = '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
 }
@@ -525,16 +527,16 @@ function getImgPersonalHouse() {
         type: "GET",
         url: "http://localhost:8080/img/house/" + house.id,
         success: function (data) {
-            let content = " <div style='height: 800px' id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
+            let content = " <div style='height: 700px' id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
                 "            <div class=\"carousel-inner\">";
             for (let i = data.length - 1; i >= 0; i--) {
                 if (i === data.length - 1) {
                     content += `<div class="carousel-item active">
-                <img width="800px" height="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+                <img width="800px" height="600px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
                 } else {
-                    content += `<div class="carousel-item">
-                <img width="800px" height="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
+                    content += `<div class=carousel-item">
+                <img width="800px" height="600px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
                 }
             }

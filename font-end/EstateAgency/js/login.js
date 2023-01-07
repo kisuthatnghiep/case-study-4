@@ -65,6 +65,7 @@ function getHouse() {
     $("#title-email").text(house.host.email);
     document.getElementById("img-agent").src = house.host.img
     getImgPersonalHouse()
+    getListGuestRent()
     getUser()
 }
 
@@ -555,6 +556,42 @@ function getImgPersonalHouse() {
                 title: 'Oops...',
                 text: 'registration Failed',
             })
+        }
+    })
+    event.preventDefault();
+}
+
+function getListGuestRent(){
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        },
+        type: "GET",
+        url: "http://localhost:8080/rent/" + house.id,
+        success: function (data) {
+            let content = "";
+            for (let i = 0; i < data.length; i++){
+                content += "<tr>\n" +
+                    "            <th scope=\"row\">"+ (i + 1) +"</th>\n" +
+                    "            <td>"+ data[i].guest.name +"</td>\n" +
+                    "            <td>"+ data[i].startDay +"</td>\n" +
+                    "            <td>"+ data[i].endDay +"</td>\n"
+                    if(data[i].status === true){
+                        content += "<td>Booked</td>"
+                    }else{
+                        content += "<td>Canceled</td>"
+                    }
+                if(data[i].checkIn === true){
+                    content += "<td>Checked</td></tr>"
+                }else{
+                    content += "<td>Unchecked</td></tr>"
+                }
+                    $("#listRentHouse").html(content);
+            }
+        },
+        error: function () {
+            $(".tableListRent").text("Empty");
         }
     })
     event.preventDefault();

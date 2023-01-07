@@ -45,10 +45,15 @@ function getUser() {
     $(".user_name").text(user.name);
     $("#user_phone").text(user.phone);
     $("#user_email").text(user.email);
-
-
+    if (user.role.id === 1){
+        $(".setProfile").attr("href", "agent-single.html")
+    }else {
+        $(".setProfile").attr("href", "guest-single.html")
+    }
     let srcImg = user.img;
+    if(document.getElementById("personal_avatar") !== null){
     document.getElementById("personal_avatar").innerHTML = '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
+    }
 }
 
 let house
@@ -69,6 +74,11 @@ function getHouse() {
     getImgPersonalHouse()
     getListGuestRent()
     getUser()
+    if(user.id !== house.host.id){
+        $(".identify").hide();
+    }else{
+        $(".identify").show();
+    }
 }
 
 function signUp() {
@@ -362,7 +372,11 @@ function houseDetail(id) {
         url: "http://localhost:8080/api/houses/" + id,
         success: function (house) {
             window.localStorage.setItem("house", JSON.stringify(house));
+            if (user.role.id === 1){
             window.location.href = "property-single.html"
+            }else {
+                window.location.href = "property-guest.html"
+            }
 
         }
     });

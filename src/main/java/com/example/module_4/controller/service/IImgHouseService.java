@@ -1,8 +1,7 @@
-package com.example.module_4.service;
+package com.example.module_4.controller.service;
 
 import com.example.module_4.model.House;
 import com.example.module_4.model.ImgHouse;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

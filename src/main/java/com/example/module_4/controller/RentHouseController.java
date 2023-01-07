@@ -2,8 +2,8 @@ package com.example.module_4.controller;
 
 import com.example.module_4.model.House;
 import com.example.module_4.model.RentHouse;
-import com.example.module_4.service.IHouseService;
-import com.example.module_4.service.IRentHouseService;
+import com.example.module_4.controller.service.IHouseService;
+import com.example.module_4.controller.service.IRentHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

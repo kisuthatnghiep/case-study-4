@@ -1,9 +1,8 @@
 package com.example.module_4.controller;
 
-import com.example.module_4.model.House;
 import com.example.module_4.model.ImgHouse;
-import com.example.module_4.service.IHouseService;
-import com.example.module_4.service.IImgHouseService;
+import com.example.module_4.controller.service.IHouseService;
+import com.example.module_4.controller.service.IImgHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;

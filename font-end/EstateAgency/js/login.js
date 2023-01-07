@@ -691,3 +691,56 @@ function changePage(i) {
     thisPage = i;
     loadItem();
 }
+
+// ---------------------------------------------------------------------------------------------------
+function rentHouse(){
+    let money = bill();
+    
+    let startDay = $("#dateStart").val()
+    let endDay = $("#dateEnd").val()
+    let newRentHouse = {
+        guest: user,
+        house: house,
+        startDay: startDay,
+        endDay: endDay,
+        status: true,
+        checkIn: false
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        url: "http://localhost:8080/rent",
+        data: JSON.stringify(newRentHouse),
+        dataType: "text",
+        success: function (data) {
+            document.getElementById("dateStart").value = ""
+            document.getElementById("dateEnd").value = ""
+            $('#modalRent').modal('hide');
+            Swal.fire(data, '', 'success')
+        },
+        error: function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "Can't rent house on this day",
+            })
+        }
+    })
+    event.preventDefault();
+}
+
+function rentalHistory(){
+
+}
+
+function bill(){
+    let startDay = $("#dateStart").val()
+    let endDay = $("#dateEnd").val()
+    let date_1 = new Date(startDay);
+    let date_2 = new Date(endDay);
+    let difference = (date_2.getTime() - date_1.getTime()) / (1000 * 3600 * 24);
+    return difference * house.price;
+}

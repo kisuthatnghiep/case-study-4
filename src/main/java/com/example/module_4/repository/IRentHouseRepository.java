@@ -13,6 +13,6 @@ import java.util.List;
 public interface IRentHouseRepository extends JpaRepository<RentHouse, Long> {
     List<RentHouse> findAllByHouse(House house);
 
-    @Query(value = "select * from Rent_house where check_in = false and status = true and house_id = ?1", nativeQuery = true)
+    @Query(value = "select * from Rent_house where status = true and house_id = ?1", nativeQuery = true)
     List<RentHouse> findAllHouseCheck(Long id);
 }

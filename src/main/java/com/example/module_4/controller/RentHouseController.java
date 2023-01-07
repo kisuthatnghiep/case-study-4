@@ -40,7 +40,8 @@ public class RentHouseController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestBody RentHouse rentHouse){
-        if (rentHouseService.checkRentHouse(rentHouse)){
+        boolean flag = rentHouseService.checkRentHouse(rentHouse);
+        if (flag){
             rentHouseService.save(rentHouse);
             return new ResponseEntity<>("successful rental!", HttpStatus.CREATED);
         }

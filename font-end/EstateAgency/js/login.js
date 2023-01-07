@@ -207,33 +207,6 @@ function getHouseHome() {
 }
 
 
-// function displayHouseHome(house) {
-//     return `
-//     <div class="carousel-item-a intro-item bg-image" style="background-image: url(${house.avatar})">
-//             <div class="overlay overlay-a"></div>
-//             <div class="intro-content display-table">
-//                 <div class="table-cell">
-//                     <div class="container">
-//                         <div class="row">
-//                             <div class="col-lg-8">
-//                                 <div class="intro-body">
-//                                     <p class="intro-title-top">Doral, Florida
-//                                         <br> 78345</p>
-//                                     <h1 class="intro-title mb-4">
-//                                         <span class="color-b">204 </span> Rino
-//                                         <br> Venda Road Five</h1>
-//                                     <p class="intro-subtitle intro-price">
-//                                         <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-//                                     </p>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </div>
-//         </div>
-//     `
-// }
 
 function displayPersonalHouse(house) {
     return `  <div  class="col-lg-12 house_pagination">

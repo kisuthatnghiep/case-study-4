@@ -1,5 +1,6 @@
 package com.example.module_4.controller;
 
+import com.example.module_4.controller.service.IUserService;
 import com.example.module_4.model.House;
 import com.example.module_4.model.RentHouse;
 import com.example.module_4.controller.service.IHouseService;
@@ -19,10 +20,21 @@ public class RentHouseController {
     private IRentHouseService rentHouseService;
     @Autowired
     private IHouseService houseService;
+    @Autowired
+    private IUserService userService;
 
     @GetMapping("{id}")
     public ResponseEntity<List<RentHouse>> findRentHousesByHouse(@PathVariable Long id){
         List<RentHouse> rentHouses = rentHouseService.findAllByHouse(houseService.findById(id).get());
+        if (rentHouses.isEmpty()){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(rentHouses, HttpStatus.OK);
+    }
+
+    @GetMapping("/guest/{id}")
+    public ResponseEntity<List<RentHouse>> findRentHousesByGuest(@PathVariable Long id){
+        List<RentHouse> rentHouses = rentHouseService.findAllByGuest(userService.findById(id).get());
         if (rentHouses.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -47,4 +59,24 @@ public class RentHouseController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @PutMapping("/checkin/{id}")
+    public ResponseEntity<String> checkin(@PathVariable Long id){
+        RentHouse rentHouses = rentHouseService.findById(id).get();
+        rentHouses.setCheckIn(true);
+        rentHouseService.save(rentHouses);
+        return new ResponseEntity<>("Checked", HttpStatus.CREATED);
+    }
+
+    @PutMapping("/cancel/{id}")
+    public ResponseEntity<String> cancel(@PathVariable Long id){
+        RentHouse rentHouses = rentHouseService.findById(id).get();
+        if (rentHouseService.checkCancel(rentHouses)){
+        rentHouses.setStatus(false);
+        rentHouseService.save(rentHouses);
+        return new ResponseEntity<>("Checked", HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
 }

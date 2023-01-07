@@ -284,9 +284,6 @@ function displayPersonalHouse(house) {
 }
 
 
-
-
-
 function displayHouse(house) {
     return `  <div  class="col-md-12 house_pagination">
           <div class="card-box-a card-shadow">
@@ -547,8 +544,9 @@ function createImgHouse() {
         data: formData,
         success: function () {
             $('#modalAddImg').modal('hide');
+            getImgPersonalHouse()
             Swal.fire('Successfully!', '', 'success')
-            location.reload();
+
         }
     })
     event.preventDefault();
@@ -693,54 +691,150 @@ function changePage(i) {
 }
 
 // ---------------------------------------------------------------------------------------------------
-function rentHouse(){
+function rentHouse() {
     let money = bill();
-    
-    let startDay = $("#dateStart").val()
-    let endDay = $("#dateEnd").val()
-    let newRentHouse = {
-        guest: user,
-        house: house,
-        startDay: startDay,
-        endDay: endDay,
-        status: true,
-        checkIn: false
-    }
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "POST",
-        url: "http://localhost:8080/rent",
-        data: JSON.stringify(newRentHouse),
-        dataType: "text",
-        success: function (data) {
-            document.getElementById("dateStart").value = ""
-            document.getElementById("dateEnd").value = ""
-            $('#modalRent').modal('hide');
-            Swal.fire(data, '', 'success')
-        },
-        error: function () {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: "Can't rent house on this day",
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "the rent is " + money,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let startDay = $("#dateStart").val()
+            let endDay = $("#dateEnd").val()
+            let newRentHouse = {
+                guest: user,
+                house: house,
+                startDay: startDay,
+                endDay: endDay,
+                status: true,
+                checkIn: false
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                url: "http://localhost:8080/rent",
+                data: JSON.stringify(newRentHouse),
+                dataType: "text",
+                success: function (data) {
+                    document.getElementById("dateStart").value = ""
+                    document.getElementById("dateEnd").value = ""
+                    $('#modalRent').modal('hide');
+                    Swal.fire(data, '', 'success')
+                },
+                error: function () {
+                    document.getElementById("dateStart").value = ""
+                    document.getElementById("dateEnd").value = ""
+                    $('#modalRent').modal('hide');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Can't rent house on this day",
+                    })
+                }
             })
+            event.preventDefault();
         }
     })
-    event.preventDefault();
-}
-
-function rentalHistory(){
 
 }
 
-function bill(){
+function rentalHistory(id) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/rent/guest/" + id,
+        success: function (rent) {
+            let content = '';
+            for (let i = 0; i < rent.length; i++) {
+                content += `<tr>
+                        <th scope="col">` + (i + 1) + `</th>
+                        <th scope="col">` + rent[i].house.name + `</th>
+                        <th scope="col">` + rent[i].house.address + `</th>
+                        <th scope="col">` + rent[i].startDay + `</th>
+                        <th scope="col">` + rent[i].endDay + `</th>
+                        <th scope="col">` + rentBill(rent[i].startDay, rent[i].endDay) * rent[i].house.price + `</th>`
+                if (rent[i].status === false) {
+                    content += `<th scope="col">Canceled</th>
+                        <th scope="col">Unchecked</th>
+                    </tr>`
+                } else if (rent[i].status === true && rent[i].checkIn === false) {
+                    content += `<th scope="col"><button onclick="cancel(`+ rent[i].id +`)" type="button" class="btn btn-danger">Cancel</button></th>
+                        <th scope="col"><button onclick="checkin(`+ rent[i].id +`)" type="button" class="btn btn-success">Check In</button></th></tr>`;
+                } else if (rent[i].status === true && rent[i].checkIn === true) {
+                    content += `<th scope="col">Booked</th>
+                        <th scope="col">Checked</th></tr>`;
+                }
+
+            }
+            document.getElementById('rentPersonalList').innerHTML = content;
+        }
+    });
+}
+
+function checkin(id){
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:8080/rent/checkin/" + id,
+        success: function () {
+            rentalHistory(user.id)
+            Swal.fire('Check In Successfully!', '', 'success')
+    }
+    });
+}
+
+function cancel(id){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, cancel it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:8080/rent/cancel/" + id,
+                success: function () {
+                    rentalHistory(user.id)
+                    Swal.fire('Canceled!', '', 'success')
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "it's too late for you to cancel",
+                    })
+                }
+            });
+        }
+    })
+
+}
+
+function bill() {
     let startDay = $("#dateStart").val()
     let endDay = $("#dateEnd").val()
     let date_1 = new Date(startDay);
     let date_2 = new Date(endDay);
     let difference = (date_2.getTime() - date_1.getTime()) / (1000 * 3600 * 24);
     return difference * house.price;
+}
+
+function rentBill(startDay, endDay) {
+    let date_1 = new Date(startDay);
+    let date_2 = new Date(endDay);
+    let difference = (date_2.getTime() - date_1.getTime()) / (1000 * 3600 * 24);
+    return difference;
+}
+
+function guestSingle() {
+    getUser()
+    rentalHistory(user.id)
 }

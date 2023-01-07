@@ -2,10 +2,12 @@ package com.example.module_4.controller.service;
 
 import com.example.module_4.model.House;
 import com.example.module_4.model.RentHouse;
+import com.example.module_4.model.User;
 import com.example.module_4.repository.IRentHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +54,18 @@ public class RentHouseService implements IRentHouseService {
             }
         }
             return true;
+    }
+
+    @Override
+    public List<RentHouse> findAllByGuest(User guest) {
+        return rentHouseRepository.findAllByGuest(guest);
+    }
+
+    @Override
+    public boolean checkCancel(RentHouse rentHouse) {
+        if (LocalDate.now().plusDays(1).isBefore(rentHouse.getStartDay())){
+            return true;
+        }
+        return false;
     }
 }

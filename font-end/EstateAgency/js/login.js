@@ -45,14 +45,14 @@ function getUser() {
     $(".user_name").text(user.name);
     $("#user_phone").text(user.phone);
     $("#user_email").text(user.email);
-    if (user.role.id === 1){
+    if (user.role.id === 1) {
         $(".setProfile").attr("href", "agent-single.html")
-    }else {
+    } else {
         $(".setProfile").attr("href", "guest-single.html")
     }
     let srcImg = user.img;
-    if(document.getElementById("personal_avatar") !== null){
-    document.getElementById("personal_avatar").innerHTML = '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
+    if (document.getElementById("personal_avatar") !== null) {
+        document.getElementById("personal_avatar").innerHTML = '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
     }
 }
 
@@ -74,9 +74,9 @@ function getHouse() {
     getImgPersonalHouse()
     getListGuestRent()
     getUser()
-    if(user.id !== house.host.id){
+    if (user.id !== house.host.id) {
         $(".identify").hide();
-    }else{
+    } else {
         $(".identify").show();
     }
 }
@@ -199,23 +199,24 @@ function getHouseHome() {
         url: "http://localhost:8080/api/houses",
         success: function (houses) {
 
-                $('.bg-image1').css('background-image', 'url(' + houses[0].avatar + ')');
-                $('.bg-image2').css('background-image', 'url(' + houses[1].avatar + ')');
-                $('.bg-image3').css('background-image', 'url(' + houses[2].avatar + ')');
-                $('.address1 ').text(houses[0].address);
-                $('.address2 ').text(houses[1].address);
-                $('.address3 ').text(houses[2].address);
-                $('.id1 ').text(houses[0].id);
-                $('.id2 ').text(houses[1].id);
-                $('.id3 ').text(houses[2].id);
-                $('.price1 ').text(houses[0].price);
-                $('.price2 ').text(houses[1].price);
-                $('.price3 ').text(houses[2].price);
-                $('.name-house1 ').text(houses[0].name);
-                $('.name-house2 ').text(houses[1].name);
-                $('.name-house3 ').text(houses[2].name);
+            $('.bg-image1').css('background-image', 'url(' + houses[0].avatar + ')');
+            $('.bg-image2').css('background-image', 'url(' + houses[1].avatar + ')');
+            $('.bg-image3').css('background-image', 'url(' + houses[2].avatar + ')');
+            $('.address1 ').text(houses[0].address);
+            $('.address2 ').text(houses[1].address);
+            $('.address3 ').text(houses[2].address);
+            $('.id1 ').text(houses[0].id);
+            $('.id2 ').text(houses[1].id);
+            $('.id3 ').text(houses[2].id);
+            $('.price1 ').text(houses[0].price);
+            $('.price2 ').text(houses[1].price);
+            $('.price3 ').text(houses[2].price);
+            $('.name-house1 ').text(houses[0].name);
+            $('.name-house2 ').text(houses[1].name);
+            $('.name-house3 ').text(houses[2].name);
+            getTop3();
             let content = '';
-            for (let i = houses.length -1; i >= 0; i--) {
+            for (let i = houses.length - 1; i >= 0; i--) {
                 content += displayHouse(houses[i]);
             }
             document.getElementById('list-house').innerHTML = content;
@@ -223,7 +224,6 @@ function getHouseHome() {
             loadItem();
         }
     });
-    getTop3();
     getUser();
 }
 
@@ -234,7 +234,7 @@ function getTop3() {
         success: function (houses) {
             let content = '';
             for (let i = 0; i < houses.length; i++) {
-                    content += displayHouse(houses[i]);
+                content += displayHouse(houses[i]);
             }
             document.getElementById('top3').innerHTML = content;
         }
@@ -372,9 +372,9 @@ function houseDetail(id) {
         url: "http://localhost:8080/api/houses/" + id,
         success: function (house) {
             window.localStorage.setItem("house", JSON.stringify(house));
-            if (user.role.id === 1){
-            window.location.href = "property-single.html"
-            }else {
+            if (user.role.id === 1) {
+                window.location.href = "property-single.html"
+            } else {
                 window.location.href = "property-guest.html"
             }
 
@@ -465,7 +465,7 @@ function deleteHouse(id) {
     })
 }
 
-function updateHouse(id){
+function updateHouse(id) {
     let name = $("#nameUpdateHouse").val();
     let address = $("#addressUpdateHouse").val();
     let description = $("#descriptionUpdateHouse").val();
@@ -484,32 +484,33 @@ function updateHouse(id){
     formData.append("house", new Blob([JSON.stringify(newHome)]
         , {type: 'application/json'}))
     $.ajax({
-            headers: {
-                // 'Accept': 'application/json',
-                // 'Content-Type': 'application/json'
-            },
-            processData: false,
-            contentType: false,
-            enctype: "multipart/form-data",
-            type: "PUT",
-            url: "http://localhost:8080/api/houses/" + id,
-            data: formData,
-            success: function () {
-                $("#nameUpdateHouse").val("")
-                $("#addressUpdateHouse").val("")
-                $("#descriptionUpdateHouse").val("")
-                $("#priceUpdateHouse").val("")
-                $("#avatar-UpdateHouse").val("")
-                getPersonalHouse()
-                $('#modalUpdateHouse').modal('hide');
-                Swal.fire('Successfully!', '', 'success')
-            }
+        headers: {
+            // 'Accept': 'application/json',
+            // 'Content-Type': 'application/json'
+        },
+        processData: false,
+        contentType: false,
+        enctype: "multipart/form-data",
+        type: "PUT",
+        url: "http://localhost:8080/api/houses/" + id,
+        data: formData,
+        success: function () {
+            $("#nameUpdateHouse").val("")
+            $("#addressUpdateHouse").val("")
+            $("#descriptionUpdateHouse").val("")
+            $("#priceUpdateHouse").val("")
+            $("#avatar-UpdateHouse").val("")
+            getPersonalHouse()
+            $('#modalUpdateHouse').modal('hide');
+            Swal.fire('Successfully!', '', 'success')
+        }
     })
     event.preventDefault();
 }
 
 let idUpdate = "";
-function passIdUpdate(id){
+
+function passIdUpdate(id) {
     idUpdate = id;
     getDataUpdateHouseForm()
 }
@@ -528,7 +529,7 @@ function getDataUpdateHouseForm() {
     });
 }
 
-function createImgHouse(){
+function createImgHouse() {
     let newImg = {
         house: house,
         img: ""
@@ -575,7 +576,7 @@ function getImgPersonalHouse() {
               </div>`
                 }
             }
-                content += `</div>
+            content += `</div>
             <button  class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
               <span style="background-color: #66a973; border-radius: 100px; " class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Previous</span>
@@ -585,7 +586,7 @@ function getImgPersonalHouse() {
               <span class="visually-hidden">Next</span>
             </button>
           </div>`
-                $(".personalImgHouse").html(content);
+            $(".personalImgHouse").html(content);
         },
         error: function () {
             Swal.fire({
@@ -598,7 +599,7 @@ function getImgPersonalHouse() {
     event.preventDefault();
 }
 
-function getListGuestRent(){
+function getListGuestRent() {
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -610,23 +611,23 @@ function getListGuestRent(){
 
 
             let content = "";
-            for (let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 content += "<tr>\n" +
-                    "            <th scope=\"row\">"+ (i + 1) +"</th>\n" +
-                    "            <td>"+ data[i].guest.name +"</td>\n" +
-                    "            <td>"+ data[i].startDay +"</td>\n" +
-                    "            <td>"+ data[i].endDay +"</td>\n"
-                    if(data[i].status === true){
-                        content += "<td>Booked</td>"
-                    }else{
-                        content += "<td>Canceled</td>"
-                    }
-                if(data[i].checkIn === true){
+                    "            <th scope=\"row\">" + (i + 1) + "</th>\n" +
+                    "            <td>" + data[i].guest.name + "</td>\n" +
+                    "            <td>" + data[i].startDay + "</td>\n" +
+                    "            <td>" + data[i].endDay + "</td>\n"
+                if (data[i].status === true) {
+                    content += "<td>Booked</td>"
+                } else {
+                    content += "<td>Canceled</td>"
+                }
+                if (data[i].checkIn === true) {
                     content += "<td>Checked</td></tr>"
-                }else{
+                } else {
                     content += "<td>Unchecked</td></tr>"
                 }
-                    $("#listRentHouse").html(content);
+                $("#listRentHouse").html(content);
             }
         },
         error: function () {
@@ -647,7 +648,7 @@ let list = [];
 function loadItem() {
     let beginGet = limit * (thisPage - 1);
     let endGet = limit * thisPage - 1;
-    for (let i = 0; i < list.length; i++){
+    for (let i = 0; i < list.length; i++) {
         if (i >= beginGet && i <= endGet) {
             list[i].style.display = 'grid';
         } else {
@@ -668,7 +669,7 @@ function listPage() {
         document.querySelector('.listPage').appendChild(prev);
     }
 
-    for ( i = 1; i <= count; i++) {
+    for (i = 1; i <= count; i++) {
         let newPage = document.createElement('li');
         newPage.innerText = i;
         if (i === thisPage) {

@@ -207,7 +207,6 @@ function getHouseHome() {
 }
 
 
-
 function displayPersonalHouse(house) {
     return `  <div  class="col-lg-12 house_pagination">
           <div class="card-box-a card-shadow">

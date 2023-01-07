@@ -5,6 +5,7 @@ import com.example.module_4.repository.IHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -31,5 +32,10 @@ public class HouseService implements IHouseService {
     @Override
     public void remove(Long id) {
         houseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<House> top5RentHouse() {
+        return houseRepository.top5RentHouse();
     }
 }

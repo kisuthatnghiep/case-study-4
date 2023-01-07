@@ -11,6 +11,7 @@
   <link href="img/favicon.png" rel="icon">
   <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
   <script src="js/login.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -18,6 +19,8 @@
           crossorigin="anonymous"></script>
   <!-- Bootstrap CSS File -->
   <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 
   <!-- Libraries CSS Files -->
   <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -160,7 +163,6 @@
           <li class="nav-item dropdown">
             <a style="color: #319849" class="nav-link dropdown-toggle" href="#" id="UserDropdown" role="button" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
-              User
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="agent-single.html">Profile</a>
@@ -240,7 +242,7 @@
             Close
           </button>
           <button type="button" class="btn btn-success" id="btn-edit"
-                  onclick="updateUser()">Submit
+                  onclick="createImgHouse()">Submit
           </button>
         </div>
       </div>
@@ -261,17 +263,31 @@
 
       <div class="row">
         <div class="col-sm-12">
-          <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
-            <div class="carousel-item-b">
-              <img src="img/slide-2.jpg" alt="">
-            </div>
-            <div class="carousel-item-b">
-              <img src="img/slide-3.jpg" alt="">
-            </div>
-            <div class="carousel-item-b">
-              <img src="img/slide-1.jpg" alt="">
+          <div class="personalImgHouse">
+            <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="img/slide-2.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                  <img src="img/slide-1.jpg" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                  <img src="img/slide-3.jpg" class="d-block w-100" alt="...">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
           </div>
+
+
           <div class="row justify-content-between">
             <div class="col-md-5 col-lg-4">
               <div class="property-price d-flex justify-content-center foo">
@@ -366,41 +382,7 @@
         </div>
 
 
-        <table style="margin-top: 50px" class="table">
-          <thead class="thead-dark">
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
-            <th scope="col">Status</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Larry</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Larry</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
 
-          </tbody>
-        </table>
 
 
 
@@ -472,7 +454,30 @@
 
           </div>
         </div>
+        <div style="margin-top: 30px" class="row section-t3">
+          <div class="col-sm-12">
+            <div class="title-box-d">
+              <h3 class="title-d">House Retal List</h3>
+            </div>
+          </div>
+        </div>
+        <div class="tableListRent">
+          <table class="table">
+            <thead class="thead-dark">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Guest</th>
+              <th scope="col">Start Day</th>
+              <th scope="col">End Day</th>
+              <th scope="col">Status</th>
+              <th scope="col">Check In</th>
+            </tr>
+            </thead>
+            <tbody id="listRentHouse">
 
+            </tbody>
+          </table>
+        </div>
 
 
         <div style="margin-top: 50px" class="col-md-12">

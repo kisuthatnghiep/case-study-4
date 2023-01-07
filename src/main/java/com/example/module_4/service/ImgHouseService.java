@@ -6,6 +6,7 @@ import com.example.module_4.repository.IImgHouseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,5 +33,10 @@ public class ImgHouseService implements IImgHouseService {
     @Override
     public void remove(Long id) {
         imgHouseRepository.deleteById(id);
+    }
+
+    @Override
+    public List<ImgHouse> findImgHousesByHouse(House house) {
+        return imgHouseRepository.findAllByHouse(house);
     }
 }

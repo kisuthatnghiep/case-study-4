@@ -202,10 +202,31 @@ function getHouseHome() {
                 $('.name-house1 ').text(houses[0].name);
                 $('.name-house2 ').text(houses[1].name);
                 $('.name-house3 ').text(houses[2].name);
-
+            let content = '';
+            for (let i = houses.length -1; i >= 0; i--) {
+                content += displayHouse(houses[i]);
+            }
+            document.getElementById('list-house').innerHTML = content;
+            list = document.getElementsByClassName('house_pagination');
+            loadItem();
         }
     });
+    getTop3();
     getUser();
+}
+
+function getTop3() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/rent/top3",
+        success: function (houses) {
+            let content = '';
+            for (let i = 0; i < houses.length; i++) {
+                    content += displayHouse(houses[i]);
+            }
+            document.getElementById('top3').innerHTML = content;
+        }
+    });
 }
 
 

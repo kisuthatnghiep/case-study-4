@@ -35,7 +35,7 @@ public class HouseService implements IHouseService {
     }
 
     @Override
-    public List<House> top5RentHouse() {
-        return houseRepository.top5RentHouse();
+    public List<House> top3RentHouse() {
+        return houseRepository.top3RentHouse();
     }
 }

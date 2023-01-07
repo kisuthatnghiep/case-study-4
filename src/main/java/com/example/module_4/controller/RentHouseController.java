@@ -29,9 +29,9 @@ public class RentHouseController {
         return new ResponseEntity<>(rentHouses, HttpStatus.OK);
     }
 
-    @GetMapping("/top5")
-    public ResponseEntity<List<House>> top5RentHouse(){
-        List<House> houses = houseService.top5RentHouse();
+    @GetMapping("/top3")
+    public ResponseEntity<List<House>> top3RentHouse(){
+        List<House> houses = houseService.top3RentHouse();
         if (houses.isEmpty()){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

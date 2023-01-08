@@ -1,7 +1,7 @@
 package com.example.module_4.controller;
 
 import com.example.module_4.model.Comment;
-import com.example.module_4.controller.service.ICommentService;
+import com.example.module_4.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

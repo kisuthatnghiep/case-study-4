@@ -1,4 +1,4 @@
-package com.example.module_4.controller.service;
+package com.example.module_4.service;
 
 import com.example.module_4.model.House;
 import com.example.module_4.model.RentHouse;
@@ -13,4 +13,5 @@ public interface IRentHouseService extends IGeneralService<RentHouse> {
 
     List<RentHouse> findAllByGuest(User guest);
     boolean checkCancel(RentHouse rentHouse);
+    List<Double> inComeMonthly(Long id);
 }

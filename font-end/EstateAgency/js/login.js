@@ -186,6 +186,7 @@ function getPersonalHouse() {
         }
     });
     getUser();
+    statistical();
 }
 
 
@@ -836,4 +837,18 @@ function rentBill(startDay, endDay) {
 function guestSingle() {
     getUser()
     rentalHistory(user.id)
+}
+
+function statistical() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/rent/income/" + user.id,
+        success: function (data) {
+            let content = `<th style="color: #66a973" scope="col">Money($)</th>`
+            for (let i = 0; i < data.length; i++){
+                content += `<th width="100px" scope="col">`+ data[i] + `</th>`
+            }
+            $("#tr-money").html(content);
+        }
+    });
 }

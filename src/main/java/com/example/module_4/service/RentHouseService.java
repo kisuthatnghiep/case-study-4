@@ -1,4 +1,4 @@
-package com.example.module_4.controller.service;
+package com.example.module_4.service;
 
 import com.example.module_4.model.House;
 import com.example.module_4.model.RentHouse;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,5 +68,25 @@ public class RentHouseService implements IRentHouseService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Double> inComeMonthly(Long id) {
+        List<Double> incomeMonth = new ArrayList<>();
+        for (int i = 1; i <= 9; i++){
+            if (rentHouseRepository.inComeMonthlyFrom1to9(id, i) != null){
+            incomeMonth.add(rentHouseRepository.inComeMonthlyFrom1to9(id, i));
+            }else {
+                incomeMonth.add(0.0);
+            }
+        }
+        for (int i = 10; i <= 12; i++){
+            if (rentHouseRepository.inComeMonthlyFrom10to12(id, i) != null){
+                incomeMonth.add(rentHouseRepository.inComeMonthlyFrom10to12(id, i));
+            }else {
+                incomeMonth.add(0.0);
+            }
+        }
+        return incomeMonth;
     }
 }

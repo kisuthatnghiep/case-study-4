@@ -1,15 +1,16 @@
 package com.example.module_4.controller;
 
-import com.example.module_4.controller.service.IUserService;
+import com.example.module_4.service.IUserService;
 import com.example.module_4.model.House;
 import com.example.module_4.model.RentHouse;
-import com.example.module_4.controller.service.IHouseService;
-import com.example.module_4.controller.service.IRentHouseService;
+import com.example.module_4.service.IHouseService;
+import com.example.module_4.service.IRentHouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -79,4 +80,8 @@ public class RentHouseController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/income/{id}")
+    public ResponseEntity<List<Double>> incomeMonthly(@PathVariable Long id){
+        return new ResponseEntity<>(rentHouseService.inComeMonthly(id), HttpStatus.CREATED);
+    }
 }

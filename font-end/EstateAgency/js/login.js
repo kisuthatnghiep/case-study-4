@@ -852,3 +852,32 @@ function statistical() {
         }
     });
 }
+
+function search(){
+    let startDay = $("#startSearch").val();
+    let endDay = $("#endSearch").val();
+    let searchObject = {
+        startDay: startDay,
+        endDay: endDay
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8080/rent/search",
+        data: JSON.stringify(searchObject),
+        success: function (houses){
+            window.location.href = "property-grid.html"
+            let content = '';
+            for (let i = 0; i < houses.length; i++) {
+                content += displayHouse(houses[i]);
+            }
+            document.getElementById('list-house').innerHTML = content;
+            list = document.getElementsByClassName('house_pagination');
+            loadItem();
+        }
+    })
+    event.preventDefault();
+}

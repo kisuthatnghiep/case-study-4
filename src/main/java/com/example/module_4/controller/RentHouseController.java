@@ -1,5 +1,6 @@
 package com.example.module_4.controller;
 
+import com.example.module_4.model.ObjectSearchRangeTime;
 import com.example.module_4.service.IUserService;
 import com.example.module_4.model.House;
 import com.example.module_4.model.RentHouse;
@@ -9,8 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -83,5 +82,14 @@ public class RentHouseController {
     @GetMapping("/income/{id}")
     public ResponseEntity<List<Double>> incomeMonthly(@PathVariable Long id){
         return new ResponseEntity<>(rentHouseService.inComeMonthly(id), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<House>> search(@RequestBody ObjectSearchRangeTime rangeTime){
+        List<House> houses = rentHouseService.checkOverLappingIntervals(rangeTime);
+        if (!houses.isEmpty()){
+            return new ResponseEntity<>(houses, HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }

@@ -22,4 +22,5 @@ public interface IRentHouseRepository extends JpaRepository<RentHouse, Long> {
     @Query(value = "select sum(DATEDIFF(end_day, start_day)*price) from rent_house join house h on h.id = rent_house.house_id\n" +
             "where check_in = true and h.host_id = ?1 and start_day like concat('2023-', ?2, '%')", nativeQuery = true)
     Double inComeMonthlyFrom10to12(Long id, int month);
+    List<RentHouse> findAllByStatusIsTrue();
 }

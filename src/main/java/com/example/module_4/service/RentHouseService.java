@@ -49,6 +49,12 @@ public class RentHouseService implements IRentHouseService {
 
     @Override
     public boolean checkRentHouse(RentHouse rentHouse) {
+        if (rentHouse.getStartDay().isAfter(rentHouse.getEndDay())){
+            return false;
+        }
+        if (rentHouse.getStartDay().isBefore(LocalDate.now())){
+            return false;
+        }
         List<RentHouse> rentHouseList = rentHouseRepository.findAllHouseCheck(rentHouse.getHouse().getId());
         for (int i = 0; i < rentHouseList.size(); i++) {
             if (rentHouse.getStartDay().isBefore(rentHouseList.get(i).getEndDay())) {

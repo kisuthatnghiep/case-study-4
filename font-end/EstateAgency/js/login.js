@@ -894,7 +894,7 @@ function rentHouse() {
                 error: function () {
                     document.getElementById("dateStart").value = ""
                     document.getElementById("dateEnd").value = ""
-                    $('#modalRent').modal('hide');
+                    document.getElementById("closeRent").click();
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -989,6 +989,9 @@ function bill() {
     let date_1 = new Date(startDay);
     let date_2 = new Date(endDay);
     let difference = (date_2.getTime() - date_1.getTime()) / (1000 * 3600 * 24);
+    if (difference === 0){
+        return house.price;
+    }
     return difference * house.price;
 }
 
@@ -1014,7 +1017,7 @@ function statistical() {
                 content += `<th width="100px" scope="col">`+ data[i] + `</th>`
             }
             $("#tr-money").html(content);
-        }
+        },
     });
 }
 
@@ -1039,7 +1042,6 @@ function search(){
         url: "http://localhost:8080/rent/search",
         data: JSON.stringify(searchObject),
         success: function (houses){
-            // $(".hideSearch").hide();
             $("#body").attr("class", "box-collapse-close");
             let content1 = '';
             for (let i = 0; i < houses.length; i++) {
@@ -1048,6 +1050,13 @@ function search(){
             document.getElementById('list-house').innerHTML = content1;
             list = document.getElementsByClassName('house_pagination');
             loadItem();
+        },
+        error: function () {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "There are no rentals available during this period!",
+            })
         }
     })
     event.preventDefault();

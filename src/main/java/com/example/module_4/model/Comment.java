@@ -26,5 +26,5 @@ public class Comment {
     // thuộc tính checkin trong rentHouse = true thì mới được rating và comment
     private Integer rating;
     private String content;
-    private LocalDate date;
+    private LocalDate date = LocalDate.now();
 }

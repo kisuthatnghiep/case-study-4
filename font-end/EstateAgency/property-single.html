@@ -163,6 +163,19 @@
                     <a class="nav-link" href="property-grid.html">Property</a>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a style="color: black" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false" id="nfDropdown">
+                        Notifications <i class="fa fa-bell" style="font-size:16px;color:#66a973"></i>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <div style="margin: 10px;width: 200px;display: grid;grid-template-columns: 20% 80%">
+                            <img width="30px" height="30px" src="img/1.jpg">
+                            <a href="agent-single.html">Notification content</a>
+                        </div>
+                    </div>
+                </li>
+
 
                 <li class="nav-item dropdown">
                     <a style="color: #319849" class="nav-link dropdown-toggle" href="#" id="UserDropdown" role="button"
@@ -478,63 +491,10 @@
                 <div class="title-box-d">
                     <h3 class="title-d">Comments (1)</h3>
                 </div>
-                <div class="box-comments">
-                    <ul class="list-comments">
-                        <li>
-                            <div class="comment-avatar">
-                                <img src="img/author-2.jpg" alt="">
-                            </div>
-                            <div class="comment-details">
-                                <h4 class="comment-author">Emma Stone</h4>
-                                <span>18 Sep 2017</span>
-                                <p class="comment-description">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores reprehenderit,
-                                    provident cumque
-                                    ipsam temporibus maiores
-                                    quae natus libero optio, at qui beatae ducimus placeat debitis voluptates amet
-                                    corporis.
-                                </p>
-                            </div>
-                        </li>
+                <div id="list-comment">
 
-                    </ul>
                 </div>
-                <div class="form-comments">
-                    <div class="title-box-d">
-                        <h3 class="title-d"> Leave a Reply</h3>
-                    </div>
-                    <form class="form-a">
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="inputName">Enter name</label>
-                                    <input type="text" class="form-control form-control-lg form-control-a"
-                                           id="inputName" placeholder="Name *"
-                                           required>
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="inputEmail1">Enter email</label>
-                                    <input type="email" class="form-control form-control-lg form-control-a"
-                                           id="inputEmail1"
-                                           placeholder="Email *" required>
-                                </div>
-                            </div>
-                            <div class="col-md-12 mb-3">
-                                <div class="form-group">
-                                    <label for="textMessage">Enter message</label>
-                                    <textarea id="textMessage" class="form-control" placeholder="Comment *"
-                                              name="message" cols="45"
-                                              rows="8" required></textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <button type="submit" class="btn btn-a">Send Message</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+
             </div>
         </div>
     </div>

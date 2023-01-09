@@ -74,6 +74,8 @@ function getHouse() {
     getImgPersonalHouse()
     getListGuestRent()
     getUser()
+    getListComment()
+    getRentHouseByHouse()
 
 }
 
@@ -366,6 +368,17 @@ function updateUser() {
     event.preventDefault();
 }
 
+let rentHouse
+function getRentHouseByHouse(){
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/rent/" + house.id,
+        success: function (data) {
+            window.localStorage.setItem("rentHouse", JSON.stringify(data));
+        }
+    });
+}
+
 function houseDetail(id) {
     $.ajax({
         type: "GET",
@@ -394,6 +407,137 @@ function getDataInUpdateForm() {
         }
     });
 }
+
+function getListComment() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/comment",
+        success: function (comment) {
+            let listComment = comment.reverse()
+            let sumRate = 0
+            let content = '';
+            for (let i = 0; i <  listComment.length; i++) {
+                    if (comment[i].house.id === house.id ){
+                content += displayComment(comment[i]);
+                    }
+                    sumRate += comment[i].rating
+            }
+            document.getElementById('list-comment').innerHTML = content;
+            document.getElementById('title-comment').innerHTML = "Comments "+"("+ comment.length +")";
+            let avgRate = sumRate/comment.length
+            let rating =""
+            for (let i=0;i<Math.round(avgRate);i++){
+                rating += `<span style="color: #deb217">★</span>`
+            }
+            document.getElementById('avgRate').innerHTML = rating +" " + "("+Math.round(avgRate *10)/10+")";
+            list = document.getElementsByClassName('comment-detail');
+            loadItem();
+
+        }
+    });
+}
+function displayComment(comment){
+    let content = `
+    <div id="list-comment" class="comment-detail">
+                    <ul class="list-comments">
+                        <li>
+                            <div class="comment-avatar">
+                                <img id="img-comment" src="${comment.guest.img}" alt="">
+                            </div>
+                            <div class="comment-details">
+                                 <div class="rate-comment" style="display:flex;align-items: flex-start ">`
+                                 
+                                 for (let i = 0; i <comment.rating ; i++) {
+                                          content+= ` <p style="color: #deb217">★</p>`
+                                     }
+
+
+                               content+= ` </div>
+                          
+                                <h4 id="name-comment" class="comment-author">${comment.guest.name}</h4>
+                                <span id="date-comment">${comment.date}</span>
+                                <p id="content-comment" class="comment-description">
+                                    ${comment.content}
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+    `
+    return content;
+}
+let rate;
+function createComment1() {
+
+    rentHouse = JSON.parse(window.localStorage.getItem("rentHouse"));
+    for (let i=0;i<rentHouse.length; i++ ){
+    if (user.id === rentHouse[i].guest.id && rentHouse[i].checkIn === true){
+    let comment = $("#textComment").val();
+    let star1 = document.getElementById("star1")
+    let star2 = document.getElementById("star2")
+    let star3 = document.getElementById("star3")
+    let star4 = document.getElementById("star4")
+    let star5 = document.getElementById("star5")
+    if(star1.checked){
+        rate = 1
+    }else if(star2.checked){
+        rate = 2
+    }else if(star3.checked){
+        rate = 3
+    }else if(star4.checked){
+        rate = 4
+    }else if(star5.checked){
+        rate = 5
+    }else {
+        rate = 0
+    }
+    let newComment = {
+        guest:{
+            id: user.id
+        },
+        house:{
+            id: house.id
+        },
+        content: comment,
+        rating : rate
+    }
+
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        url: "http://localhost:8080/comment",
+        data: JSON.stringify(newComment),
+        success: function () {
+            comment = $("#textComment").val("");
+             star1.checked = false
+             star2.checked = false
+             star3.checked = false
+             star4.checked = false
+             star5.checked = false
+
+            getListComment()
+
+            let rateInput = ''
+            for (let j=0; j<newComment.rating;j++){
+                rateInput += `<span style="color: #deb217">★</span>`
+            }
+            $(".rate-comment").html(rateInput);
+            Swal.fire('Successfully!', '', 'success')
+
+        }
+    })
+    }
+        Swal.fire('Can not Comment', '', 'error')
+
+    event.preventDefault();
+    }
+}
+
+
+
 
 function createHouse() {
     let name = $("#nameHouse").val();

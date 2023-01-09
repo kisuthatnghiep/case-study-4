@@ -57,6 +57,7 @@ function getUser() {
     if (document.getElementById("personal_avatar") !== null) {
         document.getElementById("personal_avatar").innerHTML = '<img style="width: 540px;height: 604px" src="' + srcImg + '" alt="" className="agent-avatar img-fluid">'
     }
+    displayNotification();
 }
 
 let house
@@ -182,7 +183,7 @@ function getPersonalHouse() {
         success: function (houses) {
             let content = '';
 
-            for (let i = 0; i < houses.length; i++) {
+            for (let i = houses.length - 1; i >= 0; i--) {
                 if (houses[i].host.id === user.id) {
                     content += displayPersonalHouse(houses[i]);
                     count++;
@@ -417,16 +418,20 @@ function getListComment() {
         success: function (comment) {
             let listComment = comment.reverse()
             let sumRate = 0
+            let count = 0
             let content = '';
             for (let i = 0; i <  listComment.length; i++) {
                     if (comment[i].house.id === house.id ){
                 content += displayComment(comment[i]);
                     }
                     sumRate += comment[i].rating
+                if (comment[i].rating > 0){
+                    count++
+                }
             }
             document.getElementById('list-comment').innerHTML = content;
             document.getElementById('title-comment').innerHTML = "Comments "+"("+ comment.length +")";
-            let avgRate = sumRate/comment.length
+            let avgRate = sumRate/count
             let rating =""
             for (let i=0;i<Math.round(avgRate);i++){
                 rating += `<span style="color: #deb217">★</span>`
@@ -528,7 +533,7 @@ function createComment1() {
             }
             $(".rate-comment").html(rateInput);
             Swal.fire('Successfully!', '', 'success')
-
+            createNotification(newComment.guest.id, newComment.house.id, 3);
         }
     })
         break;
@@ -713,17 +718,24 @@ function getImgPersonalHouse() {
         success: function (data) {
             let content = "<div id=\"carouselExampleControls\" class=\"carousel slide\" data-bs-ride=\"carousel\">\n" +
                 "            <div style='height: 650px;margin-bottom: 50px' class=\"carousel-inner\">";
-            for (let i = data.length - 1; i >= 0; i--) {
-                if (i === data.length - 1) {
-                    content += `<div class="carousel-item active" data-bs-interval="2000">
+            if (data === undefined){
+                content += `<div class="carousel-item active" data-bs-interval="2000">
+                <img  width="800px" src="img/default.png" class="d-block w-100" alt="...">
+              </div>`
+            }else {
+                for (let i = data.length - 1; i >= 0; i--) {
+                    if (i === data.length - 1) {
+                        content += `<div class="carousel-item active" data-bs-interval="2000">
                 <img  width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
-                } else {
-                    content += `<div class="carousel-item">
+                    } else {
+                        content += `<div class="carousel-item">
                 <img width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
+                    }
                 }
             }
+
             content += `</div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -875,8 +887,9 @@ function rentHouse() {
                 success: function (data) {
                     document.getElementById("dateStart").value = ""
                     document.getElementById("dateEnd").value = ""
-                    $('#modalRent').modal('hide');
+                    document.getElementById("closeRent").click();
                     Swal.fire(data, '', 'success')
+                    createNotification(newRentHouse.guest.id, newRentHouse.house.id, 1);
                 },
                 error: function () {
                     document.getElementById("dateStart").value = ""
@@ -952,9 +965,10 @@ function cancel(id){
             $.ajax({
                 type: "PUT",
                 url: "http://localhost:8080/rent/cancel/" + id,
-                success: function () {
+                success: function (data) {
                     rentalHistory(user.id)
                     Swal.fire('Canceled!', '', 'success')
+                    createNotification(data.guest.id, data.house.id, 2);
                 },
                 error: function () {
                     Swal.fire({
@@ -1036,5 +1050,103 @@ function search(){
             loadItem();
         }
     })
+    event.preventDefault();
+}
+
+function createNotification(guestId, houseId, typeId){
+    let guest = {
+        "id": guestId
+    }
+    let house = {
+        "id": houseId
+    }
+    let type = {
+        "id": typeId
+    }
+    let newNotification = {
+        guest: guest,
+        house: house,
+        type: type,
+        status: false
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        url: "http://localhost:8080/notification",
+        data: JSON.stringify(newNotification),
+        dataType: "text",
+        success: function (){
+        }
+    })
+    event.preventDefault();
+}
+
+function displayNotification(){
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "GET",
+        url: "http://localhost:8080/notification/" + user.id,
+        success: function (data){
+            let count=0
+            for (i=0;i<data.length;i++) {
+                if (data[i].status === false) {
+                    count++;
+                }
+            }
+            if (count > 0){
+                $("#icon-noti").css("color","red")
+            }else {
+                $("#icon-noti").css("color","#66a973")
+            }
+
+            let content = "<span>Unread (<span>"+count+"</span>)</span>";
+            for (i=data.length -1 ;i>=0;i--){
+                content+= displayNotification1(data[i]);
+
+
+            }
+            $(".notification-div").html(content)
+        }
+    })
+    event.preventDefault();
+}
+function displayNotification1(notification){
+    let content = '';
+    if (notification.status === false){
+        content += `
+     <div id=""  style="margin: 2px 3px 2px 10px;width: 300px;height: 50px;display: grid;grid-template-columns: 20% 80%;background-color: #f6f6f6">
+                            <img style="" width="50px" height="50px" src="${notification.guest.img}">
+                            <p style="border: none;cursor: pointer"  onclick="seenNotification(${notification.id},${notification.house.id})" ><span style="color:#66a973;">${notification.guest.name} </span><span>${notification.type.type} </span><span style="color: #66a973">${notification.house.name}</span></p>
+                        </div>
+    `
+    }else {
+        content += `
+     <div id=""  style="margin: 2px 3px 2px 10px;width: 300px;height: 50px;display: grid;grid-template-columns: 20% 80%;background-color: white">
+                            <img style="" width="50px" height="50px" src="${notification.guest.img}">
+                            <p style="border: none;cursor: pointer"  onclick="seenNotification(${notification.id},${notification.house.id})" ><span style="color:#66a973;">${notification.guest.name} </span><span>${notification.type.type} </span><span style="color: #66a973">${notification.house.name}</span></p>
+                        </div>
+    `
+    }
+    return content;
+}
+function seenNotification(id, houseId){
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "PUT",
+        url: "http://localhost:8080/notification/" + id,
+        success: function (){
+            $("#noti-detail").css("background-color", "white")
+        }
+    })
+            houseDetail(houseId);
     event.preventDefault();
 }

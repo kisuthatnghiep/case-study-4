@@ -25,9 +25,9 @@ public class NotificationController {
         notificationService.save(notification);
         return new ResponseEntity<>("seen", HttpStatus.CREATED);
     }
-    @GetMapping
-    public ResponseEntity<Iterable<Notification>> display(){
-        Iterable<Notification> notificationList = notificationService.findAll();
+    @GetMapping("/{id}")
+    public ResponseEntity<Iterable<Notification>> display(@PathVariable Long id){
+        Iterable<Notification> notificationList = notificationService.getNotification(id);
         if (notificationList.iterator().hasNext()){
             return new ResponseEntity<>(notificationList, HttpStatus.CREATED);
         }

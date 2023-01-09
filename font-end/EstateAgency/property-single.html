@@ -163,16 +163,27 @@
                     <a class="nav-link" href="property-grid.html">Property</a>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown notiUser">
                     <a style="color: black" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false" id="nfDropdown">
-                        Notifications <i class="fa fa-bell" style="font-size:16px;color:#66a973"></i>
+                        Notifications <i id="icon-noti" class="fa fa-bell" style="font-size:16px;color:#66a973"></i>
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <div style="margin: 10px;width: 200px;display: grid;grid-template-columns: 20% 80%">
+                    <div class="dropdown-menu notification-div" aria-labelledby="navbarDropdown">
+
+                        <div  style="margin: 10px;width: 200px;display: grid;grid-template-columns: 20% 80%">
                             <img width="30px" height="30px" src="img/1.jpg">
                             <a href="agent-single.html">Notification content</a>
                         </div>
+
+                        <div  style="margin: 10px;width: 200px;display: grid;grid-template-columns: 20% 80%">
+                            <img width="30px" height="30px" src="img/1.jpg">
+                            <a href="agent-single.html">Notification content</a>
+                        </div>
+                        <div  style="margin: 10px;width: 200px;display: grid;grid-template-columns: 20% 80%">
+                            <img width="30px" height="30px" src="img/1.jpg">
+                            <a href="agent-single.html">Notification content</a>
+                        </div>
+
                     </div>
                 </li>
 
@@ -280,8 +291,8 @@
                 <div  class="personalImgHouse">
                     <div style="width: 800px; height: 600px" id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                         <div class="carousel-inner">
-                            <div style="width: 800px; height: 600px" class="carousel-item active">
-                                <img   src="img/slide-2.jpg" class="d-block w-100" alt="...">
+                            <div  class="carousel-item active">
+                                <img width="1325px" src="img/default.png" class="d-block w-100" alt="...">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
@@ -316,6 +327,9 @@
                                 </div>
                             </div>
                             <div class="summary-list">
+                                <div class="title-box-d">
+                                    <h3 style="color: #3c7046" id="title-rate" class="w-title-a">Rating: <span style="font-size: 20px" id="avgRate"></span> </h3>
+                                </div>
                                 <ul class="list">
                                     <li class="d-flex justify-content-between">
                                         <strong>Property ID:</strong>
@@ -492,9 +506,7 @@
                     <h3 id="title-comment" class="title-d">Comments (1)</h3>
                 </div>
 
-                <div class="title-box-d">
-                    <h3 style="color: #66a973" id="title-rate" class="w-title-a">Rating: <span style="font-size: 20px" id="avgRate"></span> </h3>
-                </div>
+
 
                 <div class="box-comments">
 

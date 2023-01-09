@@ -69,12 +69,12 @@ public class RentHouseController {
     }
 
     @PutMapping("/cancel/{id}")
-    public ResponseEntity<String> cancel(@PathVariable Long id){
+    public ResponseEntity<RentHouse> cancel(@PathVariable Long id){
         RentHouse rentHouses = rentHouseService.findById(id).get();
         if (rentHouseService.checkCancel(rentHouses)){
         rentHouses.setStatus(false);
         rentHouseService.save(rentHouses);
-        return new ResponseEntity<>("Checked", HttpStatus.CREATED);
+        return new ResponseEntity<>(rentHouses, HttpStatus.CREATED);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

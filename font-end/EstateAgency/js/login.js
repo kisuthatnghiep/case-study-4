@@ -1145,9 +1145,9 @@ function displayNotification(){
             }
 
             $(".notification-div").html(content)
+            setTimeout(displayNotification, 4000)
         }
     })
-    event.preventDefault();
 }
 function displayNotification1(notification){
     let content = '';

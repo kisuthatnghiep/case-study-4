@@ -449,10 +449,13 @@ function displayComment(comment){
                     <ul class="list-comments">
                         <li>
                             <div class="comment-avatar">
-                                <img id="img-comment" src="${comment.guest.img}" alt="">
+                                <img  id="img-comment" src="${comment.guest.img}" alt="">
                             </div>
                             <div class="comment-details">
-                                 <div class="rate-comment" style="display:flex;align-items: flex-start ">`
+                            <h4 id="name-comment" class="comment-author">${comment.guest.name}</h4>
+                                <span id="date-comment">${comment.date}</span>
+                            
+                                 <div  class="rate-comment" style="display:flex;align-items: flex-start;height: 10px ">`
                                  
                                  for (let i = 0; i <comment.rating ; i++) {
                                           content+= ` <p style="color: #deb217">★</p>`
@@ -461,8 +464,7 @@ function displayComment(comment){
 
                                content+= ` </div>
                           
-                                <h4 id="name-comment" class="comment-author">${comment.guest.name}</h4>
-                                <span id="date-comment">${comment.date}</span>
+                                
                                 <p id="content-comment" class="comment-description">
                                     ${comment.content}
                                 </p>
@@ -509,33 +511,40 @@ function createComment1() {
         rating : rate
     }
 
-    $.ajax({
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        type: "POST",
-        url: "http://localhost:8080/comment",
-        data: JSON.stringify(newComment),
-        success: function () {
-            comment = $("#textComment").val("");
-             star1.checked = false
-             star2.checked = false
-             star3.checked = false
-             star4.checked = false
-             star5.checked = false
 
-            getListComment()
+    if (newComment.content === "" && newComment.rating ===0 ){
+        Swal.fire('Can not Comment', '', 'error')
+    }else {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            type: "POST",
+            url: "http://localhost:8080/comment",
+            data: JSON.stringify(newComment),
+            success: function () {
+                comment = $("#textComment").val("");
+                star1.checked = false
+                star2.checked = false
+                star3.checked = false
+                star4.checked = false
+                star5.checked = false
 
-            let rateInput = ''
-            for (let j=0; j<newComment.rating;j++){
-                rateInput += `<span style="color: #deb217">★</span>`
+                getListComment()
+
+                let rateInput = ''
+                for (let j=0; j<newComment.rating;j++){
+                    rateInput += `<span style="color: #deb217">★</span>`
+                }
+                $(".rate-comment").html(rateInput);
+                Swal.fire('Successfully!', '', 'success')
+                createNotification(newComment.guest.id, newComment.house.id, 3);
             }
-            $(".rate-comment").html(rateInput);
-            Swal.fire('Successfully!', '', 'success')
-            createNotification(newComment.guest.id, newComment.house.id, 3);
-        }
-    })
+        })
+    }
+
+
         break;
     }
         Swal.fire('Can not Comment', '', 'error')
@@ -1108,9 +1117,15 @@ function displayNotification(){
             let content = "<span>Unread (<span>"+count+"</span>)</span>";
             for (i=data.length -1 ;i>=0;i--){
                 content+= displayNotification1(data[i]);
-
+            }
+            if (data.length === 0){
+                $(".notification-div").css("height","100px")
+            }else {
+                $(".notification-div").css("height","180px")
+                $(".notification-div").css("weight","380px")
 
             }
+
             $(".notification-div").html(content)
         }
     })

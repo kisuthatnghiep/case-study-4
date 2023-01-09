@@ -419,18 +419,27 @@ function getListComment() {
             let listComment = comment.reverse()
             let sumRate = 0
             let count = 0
+            let countComment = 0
             let content = '';
             for (let i = 0; i <  listComment.length; i++) {
                     if (comment[i].house.id === house.id ){
-                content += displayComment(comment[i]);
+                     content += displayComment(comment[i]);
+                        countComment++
                     }
                     sumRate += comment[i].rating
-                if (comment[i].rating > 0){
+                if (comment[i].rating > 0 ){
                     count++
                 }
             }
+
+            if (countComment ===0){
+                    $(".listPage"). hide()
+            }else {
+                $(".listPage").show()
+            }
+
             document.getElementById('list-comment').innerHTML = content;
-            document.getElementById('title-comment').innerHTML = "Comments "+"("+ comment.length +")";
+            document.getElementById('title-comment').innerHTML = "Comments "+"("+ countComment +")";
             let avgRate = sumRate/count
             let rating =""
             for (let i=0;i<Math.round(avgRate);i++){

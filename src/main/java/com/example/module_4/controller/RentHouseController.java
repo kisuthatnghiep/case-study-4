@@ -84,7 +84,7 @@ public class RentHouseController {
         return new ResponseEntity<>(rentHouseService.inComeMonthly(id), HttpStatus.CREATED);
     }
 
-    @GetMapping("/search")
+    @PostMapping("/search")
     public ResponseEntity<List<House>> search(@RequestBody ObjectSearchRangeTime rangeTime){
         List<House> houses = rentHouseService.checkOverLappingIntervals(rangeTime);
         if (!houses.isEmpty()){

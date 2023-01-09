@@ -371,7 +371,6 @@ function updateUser() {
     event.preventDefault();
 }
 
-let rentHouse1
 function getRentHouseByHouse(){
     $.ajax({
         type: "GET",
@@ -470,8 +469,8 @@ function displayComment(comment){
     return content;
 }
 let rate;
+let rentHouse1
 function createComment1() {
-
     rentHouse1 = JSON.parse(window.localStorage.getItem("rentHouse"));
     for (let i=0;i<rentHouse1.length; i++ ){
     if (user.id === rentHouse1[i].guest.id && rentHouse1[i].checkIn === true){
@@ -532,6 +531,7 @@ function createComment1() {
 
         }
     })
+        break;
     }
         Swal.fire('Can not Comment', '', 'error')
 

@@ -172,17 +172,21 @@ function getAllHouse() {
 }
 
 function getPersonalHouse() {
+    let count =0;
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/houses",
         success: function (houses) {
             let content = '';
+
             for (let i = 0; i < houses.length; i++) {
                 if (houses[i].host.id === user.id) {
                     content += displayPersonalHouse(houses[i]);
+                    count++;
                 }
             }
             document.getElementById('list-house').innerHTML = content;
+            document.getElementById('house-length').innerText = count.toString();
             list = document.getElementsByClassName('house_pagination');
             loadItem();
         }
@@ -364,7 +368,7 @@ function updateUser() {
     event.preventDefault();
 }
 
-let rentHouse
+let rentHouse1
 function getRentHouseByHouse(){
     $.ajax({
         type: "GET",
@@ -465,9 +469,9 @@ function displayComment(comment){
 let rate;
 function createComment1() {
 
-    rentHouse = JSON.parse(window.localStorage.getItem("rentHouse"));
-    for (let i=0;i<rentHouse.length; i++ ){
-    if (user.id === rentHouse[i].guest.id && rentHouse[i].checkIn === true){
+    rentHouse1 = JSON.parse(window.localStorage.getItem("rentHouse"));
+    for (let i=0;i<rentHouse1.length; i++ ){
+    if (user.id === rentHouse1[i].guest.id && rentHouse1[i].checkIn === true){
     let comment = $("#textComment").val();
     let star1 = document.getElementById("star1")
     let star2 = document.getElementById("star2")

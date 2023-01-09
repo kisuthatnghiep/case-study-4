@@ -1,4 +1,4 @@
-package com.example.module_4.controller.service;
+package com.example.module_4.service;
 
 import com.example.module_4.model.House;
 import com.example.module_4.model.Role;

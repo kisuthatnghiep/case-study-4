@@ -2,8 +2,8 @@ package com.example.module_4.controller;
 
 import com.example.module_4.model.User;
 import com.example.module_4.model.UserUpdate;
-import com.example.module_4.controller.service.LoginService;
-import com.example.module_4.controller.service.UserService;
+import com.example.module_4.service.LoginService;
+import com.example.module_4.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,9 @@
 let container = document.getElementById('container')
 
-toggle = () => {
-    container.classList.toggle('sign-in')
-    container.classList.toggle('sign-up')
-}
+    toggle = () => {
+        container.classList.toggle('sign-in')
+        container.classList.toggle('sign-up')
+    }
 
 function login() {
     let username = $("#username").val()
@@ -188,6 +188,7 @@ function getPersonalHouse() {
         }
     });
     getUser();
+    statistical();
 }
 
 
@@ -213,12 +214,10 @@ function getHouseHome() {
             $('.name-house2 ').text(houses[1].name);
             $('.name-house3 ').text(houses[2].name);
             let content = '';
-            for (let i = houses.length - 1; i >= 0; i--) {
+            for (let i = houses.length - 1; i >= houses.length - 3; i--) {
                 content += displayHouse(houses[i]);
             }
             document.getElementById('list-house').innerHTML = content;
-            list = document.getElementsByClassName('house_pagination');
-            loadItem();
         }
     });
     getUser();
@@ -284,9 +283,6 @@ function displayPersonalHouse(house) {
           </div>
         </div>`
 }
-
-
-
 
 
 function displayHouse(house) {
@@ -690,9 +686,10 @@ function createImgHouse() {
         url: "http://localhost:8080/img/house/",
         data: formData,
         success: function () {
-            $('#modalAddImg').modal('hide');
+            document.getElementById("demo").click();
+            getImgPersonalHouse()
             Swal.fire('Successfully!', '', 'success')
-            location.reload();
+
         }
     })
     event.preventDefault();
@@ -711,7 +708,7 @@ function getImgPersonalHouse() {
                 "            <div style='height: 650px;margin-bottom: 50px' class=\"carousel-inner\">";
             for (let i = data.length - 1; i >= 0; i--) {
                 if (i === data.length - 1) {
-                    content += `<div class="carousel-item active">
+                    content += `<div class="carousel-item active" data-bs-interval="2000">
                 <img  width="800px" src="` + data[i].img + `" class="d-block w-100" alt="...">
               </div>`
                 } else {
@@ -804,8 +801,9 @@ function loadItem() {
 
 function listPage() {
     let count = Math.ceil(list.length / limit);
+    if (document.querySelector('.listPage') !== null){
     document.querySelector('.listPage').innerHTML = '';
-
+    }
     if (thisPage !== 1) {
         let prev = document.createElement('li');
         prev.innerText = 'PREV';
@@ -834,4 +832,202 @@ function listPage() {
 function changePage(i) {
     thisPage = i;
     loadItem();
+}
+
+// ---------------------------------------------------------------------------------------------------
+function rentHouse() {
+    let money = bill();
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "the rent is " + money,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            let startDay = $("#dateStart").val()
+            let endDay = $("#dateEnd").val()
+            let newRentHouse = {
+                guest: user,
+                house: house,
+                startDay: startDay,
+                endDay: endDay,
+                status: true,
+                checkIn: false
+            }
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                type: "POST",
+                url: "http://localhost:8080/rent",
+                data: JSON.stringify(newRentHouse),
+                dataType: "text",
+                success: function (data) {
+                    document.getElementById("dateStart").value = ""
+                    document.getElementById("dateEnd").value = ""
+                    $('#modalRent').modal('hide');
+                    Swal.fire(data, '', 'success')
+                },
+                error: function () {
+                    document.getElementById("dateStart").value = ""
+                    document.getElementById("dateEnd").value = ""
+                    $('#modalRent').modal('hide');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "Can't rent house on this day",
+                    })
+                }
+            })
+            event.preventDefault();
+        }
+    })
+
+}
+
+function rentalHistory(id) {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/rent/guest/" + id,
+        success: function (rent) {
+            let content = '';
+            for (let i = 0; i < rent.length; i++) {
+                content += `<tr>
+                        <th scope="col">` + (i + 1) + `</th>
+                        <th scope="col">` + rent[i].house.name + `</th>
+                        <th scope="col">` + rent[i].house.address + `</th>
+                        <th scope="col">` + rent[i].startDay + `</th>
+                        <th scope="col">` + rent[i].endDay + `</th>
+                        <th scope="col">` + rentBill(rent[i].startDay, rent[i].endDay) * rent[i].house.price + `</th>`
+                if (rent[i].status === false) {
+                    content += `<th scope="col">Canceled</th>
+                        <th scope="col">Unchecked</th>
+                    </tr>`
+                } else if (rent[i].status === true && rent[i].checkIn === false) {
+                    content += `<th scope="col"><button onclick="cancel(`+ rent[i].id +`)" type="button" class="btn btn-danger">Cancel</button></th>
+                        <th scope="col"><button onclick="checkin(`+ rent[i].id +`)" type="button" class="btn btn-success">Check In</button></th></tr>`;
+                } else if (rent[i].status === true && rent[i].checkIn === true) {
+                    content += `<th scope="col">Booked</th>
+                        <th scope="col">Checked</th></tr>`;
+                }
+
+            }
+            document.getElementById('rentPersonalList').innerHTML = content;
+        }
+    });
+}
+
+function checkin(id){
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:8080/rent/checkin/" + id,
+        success: function () {
+            rentalHistory(user.id)
+            Swal.fire('Check In Successfully!', '', 'success')
+    }
+    });
+}
+
+function cancel(id){
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, cancel it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "PUT",
+                url: "http://localhost:8080/rent/cancel/" + id,
+                success: function () {
+                    rentalHistory(user.id)
+                    Swal.fire('Canceled!', '', 'success')
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: "it's too late for you to cancel",
+                    })
+                }
+            });
+        }
+    })
+
+}
+
+function bill() {
+    let startDay = $("#dateStart").val()
+    let endDay = $("#dateEnd").val()
+    let date_1 = new Date(startDay);
+    let date_2 = new Date(endDay);
+    let difference = (date_2.getTime() - date_1.getTime()) / (1000 * 3600 * 24);
+    return difference * house.price;
+}
+
+function rentBill(startDay, endDay) {
+    let date_1 = new Date(startDay);
+    let date_2 = new Date(endDay);
+    let difference = (date_2.getTime() - date_1.getTime()) / (1000 * 3600 * 24);
+    return difference;
+}
+
+function guestSingle() {
+    getUser()
+    rentalHistory(user.id)
+}
+
+function statistical() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/rent/income/" + user.id,
+        success: function (data) {
+            let content = `<th style="color: #66a973" scope="col">Money($)</th>`
+            for (let i = 0; i < data.length; i++){
+                content += `<th width="100px" scope="col">`+ data[i] + `</th>`
+            }
+            $("#tr-money").html(content);
+        }
+    });
+}
+
+function showSearch(){
+    $(".hideSearch").show();
+}
+
+function search(){
+
+    let startDay = $("#startSearch").val();
+    let endDay = $("#endSearch").val();
+    let searchObject = {
+        startDay: startDay,
+        endDay: endDay
+    }
+    $.ajax({
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        type: "POST",
+        url: "http://localhost:8080/rent/search",
+        data: JSON.stringify(searchObject),
+        success: function (houses){
+            // $(".hideSearch").hide();
+            $("#body").attr("class", "box-collapse-close");
+            let content1 = '';
+            for (let i = 0; i < houses.length; i++) {
+                content1 += displayHouse(houses[i]);
+            }
+            document.getElementById('list-house').innerHTML = content1;
+            list = document.getElementsByClassName('house_pagination');
+            loadItem();
+        }
+    })
+    event.preventDefault();
 }

@@ -47,8 +47,11 @@ function getUser() {
     $("#user_email").text(user.email);
     if (user.role.id === 1) {
         $(".setProfile").attr("href", "agent-single.html")
+
     } else {
         $(".setProfile").attr("href", "guest-single.html")
+        $(".notiUser").hide()
+
     }
     let srcImg = user.img;
     if (document.getElementById("personal_avatar") !== null) {

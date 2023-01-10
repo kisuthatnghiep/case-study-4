@@ -87,6 +87,9 @@ public class HouseController {
     @PostMapping
     public ResponseEntity<String> create(@RequestPart("house") House house, @RequestPart(value = "file", required = false) MultipartFile file){
         uploadFile(house, file);
+        if (file == null){
+            house.setAvatar("/src/main/resources/static/img/houseDefault.jpg");
+        }
         houseService.save(house);
         return new ResponseEntity<>("Create house successfully!", HttpStatus.CREATED);
     }

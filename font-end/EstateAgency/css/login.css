@@ -10,7 +10,7 @@ body {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 body {
-    background: linear-gradient(-65deg, #f1e8af, #e7a0be, #e0b7f6, #83d5c2,#f7f7f7);
+    background: linear-gradient(-65deg, #BBD2C5, #536976, #292E49);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
     height: 100vh;

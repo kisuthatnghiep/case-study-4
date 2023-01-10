@@ -202,16 +202,21 @@
                     <div class="mb-3">
                         <label for="oldPass" class="col-form-label">Password:</label>
                         <input type="password" class="form-control" id="oldPass">
+                        <span id="regex-password-change" hidden style="color: red">*<span style="color: red;font-size: 10px" >Password 6-8 characters </span></span>
                     </div>
 
                     <div class="mb-3">
                         <label for="newPass" class="col-form-label">New Password:</label>
                         <input type="password" class="form-control" id="newPass">
+                        <span id="regex-new-password" hidden style="color: red">*<span style="color: red;font-size: 10px" >Password 6-8 characters and same current pasword </span></span>
+
                     </div>
 
                     <div class="mb-3">
                         <label for="passConfirm" class="col-form-label">New Password Confirm:</label>
                         <input type="password" class="form-control" id="passConfirm">
+                        <span id="regex-new-password-2" hidden style="color: red">*<span style="color: red;font-size: 10px" >Must the same new password</span></span>
+
                     </div>
 
                 </form>

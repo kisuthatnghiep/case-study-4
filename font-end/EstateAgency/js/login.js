@@ -179,6 +179,19 @@ function changePassword() {
         newPassword: newPassword,
         autPassword: autPassword
     }
+    if (newUser.oldPassword.length < 6 || newUser.oldPassword.length >8){
+        document.getElementById("regex-password-change").hidden = false;
+        document.getElementById("regex-new-password").hidden = true;
+        document.getElementById("regex-new-password-2").hidden = true;
+    }else if(newUser.newPassword.toString() === newUser.oldPassword.toString() || newUser.newPassword.length < 6 || newUser.newPassword.length >8){
+        document.getElementById("regex-password-change").hidden = true;
+        document.getElementById("regex-new-password").hidden = false;
+        document.getElementById("regex-new-password-2").hidden = true;
+    }else if (newUser.autPassword !== newUser.newPassword){
+        document.getElementById("regex-password-change").hidden = true;
+        document.getElementById("regex-new-password").hidden = true;
+        document.getElementById("regex-new-password-2").hidden = false;
+    }else {
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -201,6 +214,7 @@ function changePassword() {
             })
         }
     })
+    }
     event.preventDefault();
 }
 

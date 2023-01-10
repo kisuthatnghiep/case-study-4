@@ -166,7 +166,7 @@
                 <li class="nav-item dropdown notiUser">
                     <a style="color: black" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false" id="nfDropdown">
-                        Notifications <i id="icon-noti" class="fa fa-bell" style="font-size:16px;color:#66a973"></i>
+                        Notifications <i id="icon-noti" class="fa fa-bell" style="font-size:16px;color:#66a973"><sup style="background-color: red;font-weight: bold;font-size: 8px;padding: 3px 5px 3px 5px;border-radius:50%;color: white;margin-left: -6px;margin-top: 10px" id="sub-noti">2</sup></i>
                     </a>
                     <div   class="dropdown-menu notification-div" aria-labelledby="navbarDropdown">
                             <span style="padding: 10px"> 0 Notification</span>
@@ -228,40 +228,50 @@
 
 <!--/ Intro Single End /-->
 
-<div class="modal fade" id="modalAddImg" tabindex="-1"
+<div  class="modal fade" id="modalAddImg" tabindex="-1"
      aria-labelledby="exampleModalLabel">
-    <div class="modal-dialog">
-        <div class="modal-content">
+    <div style="display: flex;align-items: center"  class="modal-dialog">
+        <div class="modal-content" style="width: 1000px">
             <div class="modal-header">
                 <h5 class="modal-title" id="ModalEditTotal">Add Image</h5>
             </div>
             <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-                            </div>
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="inputGroupFile01"
-                                       aria-describedby="inputGroupFileAddon01">
-                                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
-                            </div>
+                <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+                <div class="file-upload">
+                    <button class="file-upload-btn" type="button" onclick="createImgHouse()">Add Image</button>
+
+                    <div class="image-upload-wrap">
+                        <input id="inputGroupFile01" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                        <div class="drag-text">
+                            <h3>Drag and drop a file or select add Image</h3>
                         </div>
                     </div>
-                </form>
+                    <div class="file-upload-content">
+                        <img class="file-upload-image" src="#" alt="your image" />
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" id="demo" class="btn btn-secondary" data-bs-dismiss="modal">
                     Close
                 </button>
-                <button type="button" class="btn btn-success" id="btn-edit"
-                        onclick="createImgHouse()">Submit
-                </button>
+                <!--                <button type="button" class="btn btn-success" id="btn-edit"-->
+                <!--                        onclick="createImgHouse()">Submit-->
+                <!--                </button>-->
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
 
 <!--/ Property Single Star /-->
 <section class="property-single nav-arrow-b">

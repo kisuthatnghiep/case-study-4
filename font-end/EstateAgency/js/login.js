@@ -370,6 +370,7 @@ function updateUser() {
         }
     )
     event.preventDefault();
+    removeUpload()
 }
 
 function getRentHouseByHouse(){
@@ -489,7 +490,7 @@ let rentHouse1
 function createComment1() {
     rentHouse1 = JSON.parse(window.localStorage.getItem("rentHouse"));
     for (let i=0;i<rentHouse1.length; i++ ){
-    if (user.id === rentHouse1[i].guest.id && rentHouse1[i].checkIn === true){
+    if (user.id === rentHouse1[i].guest.id && rentHouse1[i].checkIn === true && house.id === rentHouse1[i].house.id){
     let comment = $("#textComment").val();
     let star1 = document.getElementById("star1")
     let star2 = document.getElementById("star2")
@@ -522,7 +523,7 @@ function createComment1() {
 
 
     if (newComment.content === "" && newComment.rating ===0 ){
-        Swal.fire('Can not Comment', '', 'error')
+        Swal.fire('Comments or reviews cannot be left blank', '', 'error')
     }else {
         $.ajax({
             headers: {
@@ -556,7 +557,7 @@ function createComment1() {
 
         break;
     }
-        Swal.fire('Can not Comment', '', 'error')
+        Swal.fire('You cannot comment as you have never rented this property', '', 'error')
 
     event.preventDefault();
     }
@@ -706,6 +707,8 @@ function createImgHouse() {
     }
     let formData = new FormData();
     formData.append("file", $('#inputGroupFile01')[0].files[0])
+
+
     formData.append("img", new Blob([JSON.stringify(newImg)]
         , {type: 'application/json'}))
     $.ajax({
@@ -720,9 +723,18 @@ function createImgHouse() {
             getImgPersonalHouse()
             Swal.fire('Successfully!', '', 'success')
 
-        }
+        },
+    error: function () {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please add image',
+        })
+    }
     })
+
     event.preventDefault();
+    removeUpload()
 }
 
 function getImgPersonalHouse() {
@@ -1127,12 +1139,15 @@ function displayNotification(){
                 }
             }
             if (count > 0){
-                $("#icon-noti").css("color","red")
+                // $("#icon-noti").css("color","red")
+                $("#sub-noti").show()
             }else {
-                $("#icon-noti").css("color","#66a973")
+                $("#sub-noti").hide()
+                // $("#icon-noti").css("color","#66a973")
             }
 
-            let content = "<span>Unread (<span>"+count+"</span>)</span>";
+            let content = "<span style='margin: 10px;color: #0d5b1c'>Unread (<span>"+count+"</span>)</span>";
+            $("#sub-noti").text(count)
             for (i=data.length -1 ;i>=0;i--){
                 content+= displayNotification1(data[i]);
             }

@@ -170,13 +170,15 @@
                     </button>
                 </li>
 
-                <li class="nav-item dropdown">
+                <li class="nav-item dropdown notiUser">
                     <a style="color: black" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown"
                        aria-haspopup="true" aria-expanded="false" id="nfDropdown">
-                        Notifications <i class="fa fa-bell" id="icon-noti" style="font-size:16px;color:#66a973"></i>
+                        Notifications <i id="icon-noti" class="fa fa-bell" style="font-size:16px;color:#66a973"> <sup style="background-color: red;font-weight: bold;font-size: 8px;padding: 3px 5px 3px 5px;border-radius:50%;color: white;margin-left: -10px;margin-top: 10px" id="sub-noti">2</sup></i>
                     </a>
                     <div class="dropdown-menu notification-div" aria-labelledby="navbarDropdown">
+
                         <span style="padding: 10px"> 0 Notification</span>
+
                     </div>
                 </li>
 
@@ -366,13 +368,24 @@
 
                                                     <div class="mb-3">
                                                         <label for="passConfirm" class="col-form-label">Avatar</label>
-                                                        <input type="file" class="form-control" id="avatar">
+                                                        <div class="image-upload-wrap">
+                                                            <input id="avatar" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                                            <div class="drag-text">
+                                                                <h3>Drag and drop a file or select add Image</h3>
+                                                            </div>
+                                                        </div>
+                                                        <div class="file-upload-content">
+                                                            <img class="file-upload-image" src="#" alt="your image" />
+                                                            <div class="image-title-wrap">
+                                                                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                                            </div>
+                                                        </div>
                                                     </div>
 
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                <button onclick="removeUpload()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                     Close
                                                 </button>
                                                 <button type="button" class="btn btn-success" id="btn-edit"
@@ -514,13 +527,24 @@
 
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Avatar</label>
-                                    <input type="file" class="form-control" id="avatar-UpdateHouse">
+                                    <div class="image-upload-wrap">
+                                        <input id="avatar-UpdateHouse" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+                                        <div class="drag-text">
+                                            <h3>Drag and drop a file or select add Image</h3>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image" src="#" alt="your image" />
+                                        <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                        </div>
+                                    </div>
                                 </div>
 
                             </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <button onclick="removeUpload()" type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                 Close
                             </button>
                             <button type="button" class="btn btn-success" id="btn-update-house"

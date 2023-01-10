@@ -52,6 +52,10 @@ public class ImgHouseController {
 
     @PostMapping
     public ResponseEntity<String> create(@RequestPart("img") ImgHouse imgHouse, @RequestPart(value = "file", required = false) MultipartFile file){
+        String fileName = file.getOriginalFilename();
+        if(fileName == null){
+          return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
         uploadFile(imgHouse, file);
         imgHouseService.save(imgHouse);
         return new ResponseEntity<>("Create Image successfully!", HttpStatus.CREATED);

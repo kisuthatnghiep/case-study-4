@@ -47,94 +47,8 @@
 <div class="click-closed"></div>
 <!--/ Form Search Star /-->
 <div class="box-collapse">
-    <div class="title-box-d">
-        <h3 class="title-d">Search Property</h3>
-    </div>
-    <span class="close-box-collapse right-boxed ion-ios-close"></span>
-    <div class="box-collapse-wrap form">
-        <form class="form-a">
-            <div class="row">
-                <div class="col-md-12 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Keyword</label>
-                        <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="Type">Type</label>
-                        <select class="form-control form-control-lg form-control-a" id="Type">
-                            <option>All Type</option>
-                            <option>For Rent</option>
-                            <option>For Sale</option>
-                            <option>Open House</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="city">City</label>
-                        <select class="form-control form-control-lg form-control-a" id="city">
-                            <option>All City</option>
-                            <option>Alabama</option>
-                            <option>Arizona</option>
-                            <option>California</option>
-                            <option>Colorado</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="bedrooms">Bedrooms</label>
-                        <select class="form-control form-control-lg form-control-a" id="bedrooms">
-                            <option>Any</option>
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="garages">Garages</label>
-                        <select class="form-control form-control-lg form-control-a" id="garages">
-                            <option>Any</option>
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
-                            <option>04</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="bathrooms">Bathrooms</label>
-                        <select class="form-control form-control-lg form-control-a" id="bathrooms">
-                            <option>Any</option>
-                            <option>01</option>
-                            <option>02</option>
-                            <option>03</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6 mb-2">
-                    <div class="form-group">
-                        <label for="price">Min Price</label>
-                        <select class="form-control form-control-lg form-control-a" id="price">
-                            <option>Unlimite</option>
-                            <option>$50,000</option>
-                            <option>$100,000</option>
-                            <option>$150,000</option>
-                            <option>$200,000</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <button type="submit" class="btn btn-b">Search Property</button>
-                </div>
-            </div>
-        </form>
-    </div>
+
+
 </div>
 <!--/ Form Search End /-->
 
@@ -196,10 +110,6 @@
 
             </ul>
         </div>
-        <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
-                data-target="#navbarTogglerDemo01" aria-expanded="false">
-            <span class="fa fa-search" aria-hidden="true"></span>
-        </button>
     </div>
 </nav>
 
@@ -355,7 +265,6 @@
                                                         <label for="oldPass" class="col-form-label">Name</label>
                                                         <input type="text" class="form-control" id="name">
                                                     </div>
-
                                                     <div class="mb-3">
                                                         <label for="newPass" class="col-form-label">Phone</label>
                                                         <input type="text" class="form-control" id="phone">
@@ -368,18 +277,7 @@
 
                                                     <div class="mb-3">
                                                         <label for="passConfirm" class="col-form-label">Avatar</label>
-                                                        <div class="image-upload-wrap">
-                                                            <input id="avatar" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-                                                            <div class="drag-text">
-                                                                <h3>Drag and drop a file or select add Image</h3>
-                                                            </div>
-                                                        </div>
-                                                        <div class="file-upload-content">
-                                                            <img class="file-upload-image" src="#" alt="your image" />
-                                                            <div class="image-title-wrap">
-                                                                <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                                            </div>
-                                                        </div>
+                                                        <input type="file" class="form-control" id="avatar">
                                                     </div>
 
                                                 </form>
@@ -442,7 +340,7 @@
                 </div>
 
                 <button data-bs-toggle="modal" data-bs-target="#modalAddHouse" data-bs-whatever="@mdo"
-                        style="border: none; outline: none; padding: 5px" type="button"
+                        style="border: none; outline: none;margin-bottom: 50px; padding: 5px" type="button"
                         onclick="getDataInUpdateForm()" class="btn-success">Add House
                 </button>
 
@@ -460,21 +358,25 @@
                             <form>
                                 <div class="mb-3">
                                     <label for="oldPass" class="col-form-label">Name</label>
-                                    <input type="text" class="form-control" id="nameHouse">
+                                    <input type="text" class="form-control" id="nameHouse" >
+
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="newPass" class="col-form-label">Price</label>
                                     <input type="text" class="form-control" id="priceHouse">
+
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Address</label>
                                     <input type="text" class="form-control" id="addressHouse">
+
                                 </div>
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Description</label>
                                     <input type="text" class="form-control" id="descriptionHouse">
+
                                 </div>
 
                                 <div class="mb-3">
@@ -527,18 +429,7 @@
 
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Avatar</label>
-                                    <div class="image-upload-wrap">
-                                        <input id="avatar-UpdateHouse" class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
-                                        <div class="drag-text">
-                                            <h3>Drag and drop a file or select add Image</h3>
-                                        </div>
-                                    </div>
-                                    <div class="file-upload-content">
-                                        <img class="file-upload-image" src="#" alt="your image" />
-                                        <div class="image-title-wrap">
-                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
-                                        </div>
-                                    </div>
+                                    <input type="file" class="form-control" id="avatar-UpdateHouse">
                                 </div>
 
                             </form>
@@ -557,16 +448,6 @@
 
             <div class="row property-grid grid">
                 <div style="margin-left: 180px" class="col-sm-10">
-                    <div class="grid-option">
-                        <form>
-                            <select class="custom-select">
-                                <option selected>All</option>
-                                <option value="1">New to Old</option>
-                                <option value="2">For Rent</option>
-                                <option value="3">For Sale</option>
-                            </select>
-                        </form>
-                    </div>
                 </div>
                 <div class="col-lg-12" id="list-house" style="width: 1100px;">
                 </div>

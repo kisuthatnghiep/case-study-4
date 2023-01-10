@@ -10,6 +10,6 @@ import java.util.List;
 
 @Repository
 public interface INotificationRepository extends JpaRepository<Notification , Long> {
-    @Query(value = "select * from notification join house on house.id = notification.house_id where house.host_id = ?1", nativeQuery = true)
+    @Query(value = "select * from notification join house on house.id = notification.house_id where house.host_id = ?1 order by notification.id ASC", nativeQuery = true)
     List<Notification> getNotification(Long id);
 }

@@ -251,7 +251,7 @@ function displayPersonalHouse(house) {
     return `  <div  class="col-lg-12 house_pagination">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img width="360px" height="480px" src="${house.avatar}" alt="" class="col-lg-14">
+              <img width="360px" height="450px" src="${house.avatar}" alt="" class="col-lg-14">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -264,7 +264,7 @@ function displayPersonalHouse(house) {
                   <div class="price-box d-flex">
                     <span class="price-a">rent | ${house.price}</span>
                   </div>
-                  <button onclick="houseDetail(${house.id})" style="background: none;outline: none;border: none" class="link-a">Click here to view
+                  <button onclick="houseDetail(${house.id})" style="background: none;cursor: pointer;outline: none;border: none" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </button>
                 </div>
@@ -275,13 +275,13 @@ function displayPersonalHouse(house) {
                       <span>${house.description} </span>
                     </li>
                     <li>
-                                            <button id="btn-delete-house"
-                                                    style="background: none;outline: none;border: none" onclick="deleteHouse(${house.id})"><i
+                                            <button  id="btn-delete-house"
+                                                    style="background: none;cursor: pointer;outline: none;border: none" onclick="deleteHouse(${house.id})"><i
                                                     class='fas fa-trash' style='font-size:16px'></i></button>
                                         </li>
                                         <li>
                                             <button id="btn-edit-house" data-bs-toggle="modal" data-bs-target="#modalUpdateHouse" data-bs-whatever="@mdo"
-                                                    onclick="passIdUpdate(${house.id})" style="background: none;outline: none;border: none"><i
+                                                    onclick="passIdUpdate(${house.id})" style="background: none;cursor: pointer;outline: none;border: none"><i
                                                     class='fas fa-pen-alt' style='font-size:16px'></i></button>
                                         </li>
                   </ul>
@@ -297,7 +297,7 @@ function displayHouse(house) {
     return `  <div  class="col-md-12 house_pagination">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img width="360px" height="480px" src="${house.avatar}" alt="" class="col-lg-14">
+              <img width="360px" height="450px" src="${house.avatar}" alt="" class="col-lg-14">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -310,7 +310,7 @@ function displayHouse(house) {
                   <div class="price-box d-flex">
                     <span class="price-a">rent | ${house.price}</span>
                   </div>
-                  <button onclick="houseDetail(${house.id})" style="background: none;outline: none;border: none" class="link-a">Click here to view
+                  <button onclick="houseDetail(${house.id})" style="background: none;cursor: pointer;outline: none;border: none" class="link-a">Click here to view
                     <span class="ion-ios-arrow-forward"></span>
                   </button>
                 </div>
@@ -346,29 +346,32 @@ function updateUser() {
     formData.append("file", $('#avatar')[0].files[0])
     formData.append("user", new Blob([JSON.stringify(newUser)]
         , {type: 'application/json'}))
-    $.ajax({
-            headers: {
-                // 'Accept': 'application/json',
-                // 'Content-Type': 'application/json'
-            },
-            processData: false,
-            contentType: false,
-            enctype: "multipart/form-data",
-            type: "PUT",
-            url: "http://localhost:8080/update_user",
-            data: formData,
-            success: function (data) {
-                $("#name").val("");
-                $("#phone").val("");
-                $("#email").val("");
-                $("#avatar").val("");
-                window.localStorage.setItem("user", JSON.stringify(data));
-                getUser();
-                $('#ModalEdit').modal('hide');
-                Swal.fire('Changed!', '', 'success')
+
+
+        $.ajax({
+                headers: {
+                    // 'Accept': 'application/json',
+                    // 'Content-Type': 'application/json'
+                },
+                processData: false,
+                contentType: false,
+                enctype: "multipart/form-data",
+                type: "PUT",
+                url: "http://localhost:8080/update_user",
+                data: formData,
+                success: function (data) {
+                    $("#name").val("");
+                    $("#phone").val("");
+                    $("#email").val("");
+                    $("#avatar").val("");
+                    window.localStorage.setItem("user", JSON.stringify(data));
+                    getUser();
+                    $('#ModalEdit').modal('hide');
+                    Swal.fire('Changed!', '', 'success')
+                }
             }
-        }
-    )
+        )
+
     event.preventDefault();
     removeUpload()
 }
@@ -583,28 +586,32 @@ function createHouse() {
     formData.append("file", $('#avatar-House')[0].files[0])
     formData.append("house", new Blob([JSON.stringify(newHome)]
         , {type: 'application/json'}))
-    $.ajax({
-        headers: {
-            // 'Accept': 'application/json',
-            // 'Content-Type': 'application/json'
-        },
-        processData: false,
-        contentType: false,
-        enctype: "multipart/form-data",
-        type: "POST",
-        url: "http://localhost:8080/api/houses",
-        data: formData,
-        success: function () {
-            $("#nameHouse").val("")
-            $("#addressHouse").val("")
-            $("#descriptionHouse").val("")
-            $("#priceHouse").val("")
-            $("#avatar-House").val("")
-            getPersonalHouse()
-            $('#modalAddHouse').modal('hide');
-            Swal.fire('Successfully!', '', 'success')
-        }
-    })
+
+
+
+
+        $.ajax({
+            headers: {
+                // 'Accept': 'application/json',
+                // 'Content-Type': 'application/json'
+            },
+            processData: false,
+            contentType: false,
+            enctype: "multipart/form-data",
+            type: "POST",
+            url: "http://localhost:8080/api/houses",
+            data: formData,
+            success: function () {
+                $("#nameHouse").val("")
+                $("#addressHouse").val("")
+                $("#descriptionHouse").val("")
+                $("#priceHouse").val("")
+                $("#avatar-House").val("")
+                getPersonalHouse()
+                $('#modalAddHouse').modal('hide');
+                Swal.fire('Successfully!', '', 'success')
+            }
+        })
     event.preventDefault();
 }
 
@@ -677,6 +684,7 @@ function updateHouse(id) {
         }
     })
     event.preventDefault();
+    removeUpload()
 }
 
 let idUpdate = "";
@@ -947,7 +955,7 @@ function rentalHistory(id) {
             for (let i = 0; i < rent.length; i++) {
                 content += `<tr>
                         <th scope="col">` + (i + 1) + `</th>
-                        <th scope="col">` + rent[i].house.name + `</th>
+                        <th style="cursor: pointer" onclick="houseDetail(${rent[i].house.id})" scope="col">` + rent[i].house.name + `</th>
                         <th scope="col">` + rent[i].house.address + `</th>
                         <th scope="col">` + rent[i].startDay + `</th>
                         <th scope="col">` + rent[i].endDay + `</th>
@@ -1141,6 +1149,7 @@ function displayNotification(){
             if (count > 0){
                 // $("#icon-noti").css("color","red")
                 $("#sub-noti").show()
+                document.getElementById("sub-noti").hidden = false;
             }else {
                 $("#sub-noti").hide()
                 // $("#icon-noti").css("color","#66a973")
@@ -1148,7 +1157,7 @@ function displayNotification(){
 
             let content = "<span style='margin: 10px;color: #0d5b1c'>Unread (<span>"+count+"</span>)</span>";
             $("#sub-noti").text(count)
-            for (i=data.length -1 ;i>=0;i--){
+            for (let i=data.length -1 ;i>=0;i--){
                 content+= displayNotification1(data[i]);
             }
             if (data.length === 0){

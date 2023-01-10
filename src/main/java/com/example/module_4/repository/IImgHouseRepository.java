@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface IImgHouseRepository extends JpaRepository<ImgHouse, Long> {
     List<ImgHouse> findAllByHouse(House house);
+    void deleteAllByHouse(House house);
 }

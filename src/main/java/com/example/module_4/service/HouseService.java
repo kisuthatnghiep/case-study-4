@@ -1,9 +1,10 @@
 package com.example.module_4.service;
 
 import com.example.module_4.model.House;
-import com.example.module_4.repository.IHouseRepository;
+import com.example.module_4.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -12,6 +13,14 @@ import java.util.Optional;
 public class HouseService implements IHouseService {
     @Autowired
     private IHouseRepository houseRepository;
+    @Autowired
+    private IImgHouseRepository imgHouseRepository;
+    @Autowired
+    private ICommentRepository commentRepository;
+    @Autowired
+    private INotificationRepository notificationRepository;
+    @Autowired
+    private IRentHouseRepository rentHouseRepository;
 
     @Override
     public Iterable<House> findAll() {
@@ -30,7 +39,13 @@ public class HouseService implements IHouseService {
     }
 
     @Override
+    @Transactional
     public void remove(Long id) {
+        House house = findById(id).get();
+        imgHouseRepository.deleteAllByHouse(house);
+        commentRepository.deleteAllByHouse(house);
+        rentHouseRepository.deleteAllByHouse(house);
+        notificationRepository.deleteAllByHouse(house);
         houseRepository.deleteById(id);
     }
 

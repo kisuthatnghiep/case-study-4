@@ -23,4 +23,5 @@ public interface IRentHouseRepository extends JpaRepository<RentHouse, Long> {
             "where check_in = true and h.host_id = ?1 and start_day like concat('2023-', ?2, '%')", nativeQuery = true)
     Double inComeMonthlyFrom10to12(Long id, int month);
     List<RentHouse> findAllByStatusIsTrue();
+    void deleteAllByHouse(House house);
 }

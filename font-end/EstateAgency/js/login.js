@@ -108,10 +108,17 @@ function signUp() {
         data: JSON.stringify(newUser),
         dataType: "text",
         success: function (data) {
+            $("#name_signup").val("")
+            $("#username_signup").val("")
+            $("#role_signup").val("3")
+            $("#email_signup").val("")
+            $("#password_signup").val("")
             Swal.fire(data, '', 'success')
             document.getElementById("clickLogIn").click();
         },
+
         error: function () {
+
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -430,11 +437,14 @@ function getListComment() {
                     if (comment[i].house.id === house.id ){
                      content += displayComment(comment[i]);
                         countComment++
-                    }
-                    sumRate += comment[i].rating
+                        sumRate += comment[i].rating
                 if (comment[i].rating > 0 ){
                     count++
                 }
+
+                    }
+
+
             }
 
             if (countComment ===0){
@@ -450,7 +460,13 @@ function getListComment() {
             for (let i=0;i<Math.round(avgRate);i++){
                 rating += `<span style="color: #deb217">★</span>`
             }
-            document.getElementById('avgRate').innerHTML = rating +" " + "("+Math.round(avgRate *10)/10+")";
+            if (avgRate > 0 ){
+                document.getElementById('avgRate').innerHTML = rating +" " + "("+Math.round(avgRate *10)/10+")";
+            }else {
+                document.getElementById('avgRate').innerHTML = " ";
+
+            }
+
             list = document.getElementsByClassName('comment-detail');
             loadItem();
 

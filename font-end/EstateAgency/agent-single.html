@@ -264,22 +264,25 @@
                                                     <div class="mb-3">
                                                         <label for="oldPass" class="col-form-label">Name</label>
                                                         <input type="text" class="form-control" id="name">
+                                                        <span id="regex-name" hidden style="color: red">*<span style="color: red;font-size: 10px" >Name required</span></span>
+
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="newPass" class="col-form-label">Phone</label>
                                                         <input type="text" class="form-control" id="phone">
+                                                        <span id="regex-phone" hidden style="color: red">*<span style="color: red;font-size: 10px" >Phone numbers start with 0 and have 10 numbers </span></span>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="passConfirm" class="col-form-label">Email</label>
                                                         <input type="text" class="form-control" id="email">
+                                                        <span id="regex-email" hidden style="color: red">*<span style="color: red;font-size: 10px" >Email is not valid (fx: aaaa123@gmail.com)</span></span>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="passConfirm" class="col-form-label">Avatar</label>
                                                         <input type="file" class="form-control" id="avatar">
                                                     </div>
-
                                                 </form>
                                             </div>
                                             <div class="modal-footer">
@@ -359,23 +362,25 @@
                                 <div class="mb-3">
                                     <label for="oldPass" class="col-form-label">Name</label>
                                     <input type="text" class="form-control" id="nameHouse" >
+                                    <span id="regex-name-house" hidden style="color: red">*<span style="color: red;font-size: 10px" >Name required</span></span>
 
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="newPass" class="col-form-label">Price</label>
                                     <input type="text" class="form-control" id="priceHouse">
-
+                                    <span id="regex-price-house" hidden style="color: red">*<span style="color: red;font-size: 10px" >Price must be numeric and greater than 0</span></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Address</label>
                                     <input type="text" class="form-control" id="addressHouse">
-
+                                    <span id="regex-address-house" hidden style="color: red">*<span style="color: red;font-size: 10px" >Address required</span></span>
                                 </div>
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Description</label>
                                     <input type="text" class="form-control" id="descriptionHouse">
+                                    <span id="regex-description-house" hidden style="color: red">*<span style="color: red;font-size: 10px" >Description required</span></span>
 
                                 </div>
 
@@ -411,20 +416,27 @@
                                 <div class="mb-3">
                                     <label for="oldPass" class="col-form-label">Name</label>
                                     <input type="text" class="form-control" id="nameUpdateHouse">
+                                    <span id="regex-name-house-update" hidden style="color: red">*<span style="color: red;font-size: 10px" >Name required</span></span>
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="newPass" class="col-form-label">Price</label>
                                     <input type="text" class="form-control" id="priceUpdateHouse">
+                                    <span id="regex-price-house-update" hidden style="color: red">*<span style="color: red;font-size: 10px" >Price must be numeric and greater than 0</span></span>
+
                                 </div>
 
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Address</label>
                                     <input type="text" class="form-control" id="addressUpdateHouse">
+                                    <span id="regex-address-house-update" hidden style="color: red">*<span style="color: red;font-size: 10px" >Address required</span></span>
+
                                 </div>
                                 <div class="mb-3">
                                     <label for="passConfirm" class="col-form-label">Description</label>
                                     <input type="text" class="form-control" id="descriptionUpdateHouse">
+                                    <span id="regex-description-house-update" hidden style="color: red">*<span style="color: red;font-size: 10px" >Description required</span></span>
+
                                 </div>
 
                                 <div class="mb-3">

@@ -43,35 +43,39 @@
       </div>
     </div>
     <div class="form sign-up">
+
       <h2>Create your Account</h2>
       <label>
-        <span>Name</span>
-        <input type="text" id="name_signup" />
+        <input type="text" id="name_signup" placeholder="Name" />
+        <span id="regex-name-signup" hidden style="color: red">*<span style="color: red;font-size: 10px" >Name required</span></span>
       </label>
       <label>
-        <span>User Name</span>
-        <input type="text" id="username_signup"/>
+        <input type="text" id="username_signup" placeholder="User Name"/>
+        <span id="regex-username-signup" hidden style="color: red">*<span style="color: red;font-size: 10px" >Username required</span></span>
       </label>
 
       <label>
-        <span>Email</span>
-        <input type="email" id="email_signup"/>
+
+        <input type="email" id="email_signup" placeholder="Email"/>
+        <span id="regex-email-signup" hidden style="color: red">*<span style="color: red;font-size: 10px" >Email is not vaild</span></span>
       </label>
       <label>
-        <span>Password</span>
-        <input type="password" id="password_signup"/>
+        <input type="password" id="password_signup" placeholder="Password"/>
+        <span id="regex-password-signup" hidden style="color: red">*<span style="color: red;font-size: 10px" >Email is not valid</span></span>
       </label>
 
       <label>
         <div class="select">
           <select  id="role_signup">
-            <option value="3" >You Are....</option>
+            <option value="3" selected >You Are....</option>
             <option value="1">Host</option>
             <option value="2">Guest</option>
           </select>
         </div>
+        <span id="regex-role-signup" hidden style="color: red">*<span style="color: red;font-size: 10px" >You have not selected a role</span></span>
+
       </label>
-      <button type="button" class="submit" onclick="signUp()">Sign Up</button>
+      <button type="submit" class="submit" onclick="signUp()" >Sign Up</button>
 
     </div>
   </div>

@@ -98,6 +98,43 @@ function signUp() {
         email: email,
         password: password
     }
+    if (newUser.name === ""){
+        document.getElementById("regex-name-signup").hidden = false;
+        document.getElementById("regex-username-signup").hidden = true;
+        document.getElementById("regex-email-signup").hidden = true;
+        document.getElementById("regex-password-signup").hidden = true;
+        document.getElementById("regex-role-signup").hidden = true;
+    }else if (newUser.username === ""){
+        document.getElementById("regex-name-signup").hidden = true;
+        document.getElementById("regex-username-signup").hidden = false;
+        document.getElementById("regex-email-signup").hidden = true;
+        document.getElementById("regex-password-signup").hidden = true;
+        document.getElementById("regex-role-signup").hidden = true;
+
+    }else if (!newUser.email.match(/[^\s@]+@[^\s@]+\.[^\s@]+/gi)){
+        document.getElementById("regex-name-signup").hidden = true;
+        document.getElementById("regex-username-signup").hidden = true;
+        document.getElementById("regex-email-signup").hidden = false;
+        document.getElementById("regex-password-signup").hidden = true;
+        document.getElementById("regex-role-signup").hidden = true;
+
+    }else if (newUser.password.length <6 || newUser.password.length > 8 ){
+        document.getElementById("regex-name-signup").hidden = true;
+        document.getElementById("regex-username-signup").hidden = true;
+        document.getElementById("regex-email-signup").hidden = true;
+        document.getElementById("regex-password-signup").hidden = false;
+        document.getElementById("regex-role-signup").hidden = true;
+
+    }else if (newUser.role.id >2 ){
+        document.getElementById("regex-name-signup").hidden = true;
+        document.getElementById("regex-username-signup").hidden = true;
+        document.getElementById("regex-email-signup").hidden = true;
+        document.getElementById("regex-password-signup").hidden = true;
+        document.getElementById("regex-role-signup").hidden = false;
+    }
+
+    else {
+
     $.ajax({
         headers: {
             'Accept': 'application/json',
@@ -121,11 +158,12 @@ function signUp() {
 
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Username already exists',
                 text: 'registration Failed',
             })
         }
     })
+    }
     event.preventDefault();
 }
 
@@ -356,6 +394,24 @@ function updateUser() {
         , {type: 'application/json'}))
 
 
+    if (newUser.name === ""){
+        document.getElementById("regex-name").hidden = false;
+        document.getElementById("regex-phone").hidden = true;
+        document.getElementById("regex-email").hidden = true;
+    }else if (!newUser.phone.match(/(84|0[3|5|7|8|9])+([0-9]{8})\b/g)){
+        document.getElementById("regex-name").hidden = true;
+        document.getElementById("regex-phone").hidden = false;
+        document.getElementById("regex-email").hidden = true;
+
+    }else if (!newUser.email.match(/[^\s@]+@[^\s@]+\.[^\s@]+/gi)){
+        document.getElementById("regex-name").hidden = true;
+        document.getElementById("regex-phone").hidden = true;
+        document.getElementById("regex-email").hidden = false;
+
+    }
+    else {
+
+
         $.ajax({
                 headers: {
                     // 'Accept': 'application/json',
@@ -379,6 +435,7 @@ function updateUser() {
                 }
             }
         )
+    }
 
     event.preventDefault();
     removeUpload()
@@ -604,7 +661,29 @@ function createHouse() {
     formData.append("house", new Blob([JSON.stringify(newHome)]
         , {type: 'application/json'}))
 
+    if (newHome.name === ""){
+        document.getElementById("regex-name-house").hidden = false;
+        document.getElementById("regex-price-house").hidden = true;
+        document.getElementById("regex-address-house").hidden = true;
+        document.getElementById("regex-description-house").hidden = true;
+    }else if (!newHome.price.match(/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/) || newHome.price < 1){
+        document.getElementById("regex-name-house").hidden = true;
+        document.getElementById("regex-price-house").hidden = false;
+        document.getElementById("regex-address-house").hidden = true;
+        document.getElementById("regex-description-house").hidden = true;
 
+    }else if (newHome.address === ""){
+        document.getElementById("regex-name-house").hidden = true;
+        document.getElementById("regex-price-house").hidden = true;
+        document.getElementById("regex-address-house").hidden = false;
+        document.getElementById("regex-description-house").hidden = true;
+    }else if (newHome.description === ""){
+        document.getElementById("regex-name-house").hidden = true;
+        document.getElementById("regex-price-house").hidden = true;
+        document.getElementById("regex-address-house").hidden = true;
+        document.getElementById("regex-description-house").hidden = false;
+    }
+    else {
 
 
         $.ajax({
@@ -629,6 +708,7 @@ function createHouse() {
                 Swal.fire('Successfully!', '', 'success')
             }
         })
+    }
     event.preventDefault();
 }
 
@@ -678,6 +758,31 @@ function updateHouse(id) {
     formData.append("file", $('#avatar-UpdateHouse')[0].files[0])
     formData.append("house", new Blob([JSON.stringify(newHome)]
         , {type: 'application/json'}))
+
+    if (newHome.name === ""){
+        document.getElementById("regex-name-house-update").hidden = false;
+        document.getElementById("regex-price-house-update").hidden = true;
+        document.getElementById("regex-address-house-update").hidden = true;
+        document.getElementById("regex-description-house").hidden = true;
+    }else if (!newHome.price.match(/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/) || newHome.price < 1){
+        document.getElementById("regex-name-house-update").hidden = true;
+        document.getElementById("regex-price-house-update").hidden = false;
+        document.getElementById("regex-address-house-update").hidden = true;
+        document.getElementById("regex-description-house").hidden = true;
+
+    }else if (newHome.address === ""){
+        document.getElementById("regex-name-house-update").hidden = true;
+        document.getElementById("regex-price-house-update").hidden = true;
+        document.getElementById("regex-address-house-update").hidden = false;
+        document.getElementById("regex-description-house").hidden = true;
+    }else if (newHome.description === ""){
+        document.getElementById("regex-name-house-update").hidden = true;
+        document.getElementById("regex-price-house-update").hidden = true;
+        document.getElementById("regex-address-house-update").hidden = true;
+        document.getElementById("regex-description-house-update").hidden = false;
+    }
+    else {
+
     $.ajax({
         headers: {
             // 'Accept': 'application/json',
@@ -700,6 +805,8 @@ function updateHouse(id) {
             Swal.fire('Successfully!', '', 'success')
         }
     })
+    }
+
     event.preventDefault();
     removeUpload()
 }
@@ -732,10 +839,9 @@ function createImgHouse() {
     }
     let formData = new FormData();
     formData.append("file", $('#inputGroupFile01')[0].files[0])
-
-
     formData.append("img", new Blob([JSON.stringify(newImg)]
         , {type: 'application/json'}))
+
     $.ajax({
         processData: false,
         contentType: false,
@@ -744,6 +850,7 @@ function createImgHouse() {
         url: "http://localhost:8080/img/house/",
         data: formData,
         success: function () {
+            $("#inputGroupFile01").val("")
             document.getElementById("demo").click();
             getImgPersonalHouse()
             Swal.fire('Successfully!', '', 'success')
@@ -757,9 +864,8 @@ function createImgHouse() {
         })
     }
     })
-
-    event.preventDefault();
     removeUpload()
+    event.preventDefault();
 }
 
 function getImgPersonalHouse() {

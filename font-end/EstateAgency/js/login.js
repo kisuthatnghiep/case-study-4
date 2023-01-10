@@ -109,6 +109,7 @@ function signUp() {
         dataType: "text",
         success: function (data) {
             Swal.fire(data, '', 'success')
+            document.getElementById("clickLogIn").click();
         },
         error: function () {
             Swal.fire({

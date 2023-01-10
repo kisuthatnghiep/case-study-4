@@ -1306,10 +1306,10 @@ function displayNotification(){
             }
 
             $(".notification-div").html(content)
-            // setTimeout(displayNotification, 4000000)
+            setTimeout(displayNotification, 4000)
         },
         error: function () {
-            // setTimeout(displayNotification, 4000)
+            setTimeout(displayNotification, 4000)
         }
     })
 }

@@ -259,6 +259,10 @@ function getPersonalHouse() {
     statistical();
 }
 
+let a =""
+let b =""
+let c =""
+
 
 function getHouseHome() {
     $.ajax({
@@ -281,6 +285,11 @@ function getHouseHome() {
             $('.name-house1 ').text(houses[0].name);
             $('.name-house2 ').text(houses[1].name);
             $('.name-house3 ').text(houses[2].name);
+
+            a = houses[0].id
+            b = houses[1].id
+            c = houses[2].id
+
             let content = '';
             for (let i = houses.length - 1; i >= houses.length - 3; i--) {
                 content += displayHouse(houses[i]);
@@ -1349,3 +1358,4 @@ function seenNotification(id, houseId){
             houseDetail(houseId);
     event.preventDefault();
 }
+

@@ -29,7 +29,7 @@ function login() {
         error: function () {
             Swal.fire({
                 icon: 'error',
-                title: 'Oops...',
+                title: 'Incorrect account or password',
                 text: 'Log In Failed',
             })
         }
@@ -311,7 +311,7 @@ function displayPersonalHouse(house) {
     return `  <div  class="col-lg-12 house_pagination">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img width="360px" height="450px" src="${house.avatar}" alt="" class="col-lg-14">
+              <img width="360px" height="480px" src="${house.avatar}" alt="" class="col-lg-14">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -330,20 +330,22 @@ function displayPersonalHouse(house) {
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
-                    <li>
+                    <li style="width: 200px">
                       <h4 class="card-info-title">Description</h4>
                       <span>${house.description} </span>
                     </li>
-                    <li>
-                                            <button  id="btn-delete-house"
-                                                    style="background: none;cursor: pointer;outline: none;border: none" onclick="deleteHouse(${house.id})"><i
-                                                    class='fas fa-trash' style='font-size:16px'></i></button>
-                                        </li>
-                                        <li>
+                    
+                                          <li>
                                             <button id="btn-edit-house" data-bs-toggle="modal" data-bs-target="#modalUpdateHouse" data-bs-whatever="@mdo"
                                                     onclick="passIdUpdate(${house.id})" style="background: none;cursor: pointer;outline: none;border: none"><i
                                                     class='fas fa-pen-alt' style='font-size:16px'></i></button>
                                         </li>
+                                         <li>
+                                            <button  id="btn-delete-house"
+                                                    style="background: none;cursor: pointer;outline: none;border: none" onclick="deleteHouse(${house.id})"><i
+                                                    class='fas fa-trash' style='font-size:16px'></i></button>
+                                        </li>
+                                        
                   </ul>
                 </div>
               </div>
@@ -357,7 +359,7 @@ function displayHouse(house) {
     return `  <div  class="col-md-12 house_pagination">
           <div class="card-box-a card-shadow">
             <div class="img-box-a">
-              <img width="360px" height="450px" src="${house.avatar}" alt="" class="col-lg-14">
+              <img width="360px" height="480px" src="${house.avatar}" alt="" class="col-lg-14">
             </div>
             <div class="card-overlay">
               <div class="card-overlay-a-content">
@@ -376,7 +378,7 @@ function displayHouse(house) {
                 </div>
                 <div class="card-footer-a">
                   <ul class="card-info d-flex justify-content-around">
-                    <li style="margin-right: 220px">
+                    <li style="margin-right:100px;width: 200px">
                       <h4 class="card-info-title">Description</h4>
                       <span>${house.description} </span>
                     </li>

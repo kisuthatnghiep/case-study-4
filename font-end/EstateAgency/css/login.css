@@ -10,7 +10,7 @@ body {
     font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
 body {
-    background: linear-gradient(-65deg, #BBD2C5, #536976, #292E49);
+    background: linear-gradient(-65deg,#F1F2B5, #135058);
     background-size: 400% 400%;
     animation: gradient 10s ease infinite;
     height: 100vh;
@@ -114,7 +114,7 @@ button {
     top: 0;
     width: 900px;
     height: 100%;
-    background-image: url("../img/1.jpg")  ;
+    background-image: url("../img/imageNew/home7.png")  ;
     background-size: cover;
     -webkit-transition: -webkit-transform 1.2s ease-in-out;
     transition: transform 1.2s ease-in-out;
